@@ -11,7 +11,6 @@
 declare(strict_types = 1);
 namespace MezzioTest\Navigation\Helper;
 
-use Mezzio\GenericAuthorization\LaminasView\Authorization;
 use Mezzio\Navigation\Helper\ConfigProvider;
 use Mezzio\Navigation\Helper\PluginManager;
 use PHPUnit\Framework\TestCase;

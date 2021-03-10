@@ -15,7 +15,6 @@ use Laminas\I18n\View\Helper\Translate;
 use Laminas\View\Helper\EscapeHtml;
 use Laminas\View\Helper\EscapeHtmlAttr;
 use Mezzio\Navigation\Helper\Htmlify;
-use Mezzio\Navigation\LaminasView\View\Helper\Navigation\Breadcrumbs;
 use Mezzio\Navigation\Page\PageInterface;
 use PHPUnit\Framework\TestCase;
 

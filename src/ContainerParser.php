@@ -32,7 +32,7 @@ final class ContainerParser implements ContainerParserInterface
     /**
      * Verifies container and eventually fetches it from service locator if it is a string
      *
-     * @param Navigation\ContainerInterface|string|int|null $container
+     * @param int|Navigation\ContainerInterface|string|null $container
      *
      * @throws Exception\InvalidArgumentException
      *

@@ -40,8 +40,8 @@ final class ConvertToPages implements ConvertToPagesInterface
     /**
      * Converts a $mixed value to an array of pages
      *
-     * @param ContainerInterface|PageInterface|string|array|Traversable $mixed     mixed value to get page(s) from
-     * @param bool                                                $recursive whether $value should be looped if it is an array or a config
+     * @param array|ContainerInterface|PageInterface|string|Traversable $mixed     mixed value to get page(s) from
+     * @param bool                                                      $recursive whether $value should be looped if it is an array or a config
      *
      * @return PageInterface[]
      */
