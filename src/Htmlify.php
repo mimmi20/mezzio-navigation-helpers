@@ -12,9 +12,7 @@ declare(strict_types = 1);
 namespace Mezzio\Navigation\Helper;
 
 use Laminas\I18n\View\Helper\Translate;
-use Laminas\Json\Json;
 use Laminas\View\Helper\EscapeHtml;
-use Laminas\View\Helper\EscapeHtmlAttr;
 use Mezzio\Navigation\Page\PageInterface;
 
 final class Htmlify implements HtmlifyInterface
@@ -25,19 +23,19 @@ final class Htmlify implements HtmlifyInterface
     /** @var EscapeHtml */
     private $escaper;
 
-    /** @var EscapeHtmlAttr */
-    private $escapeHtmlAttr;
+    /** @var \Mezzio\Navigation\Helper\HtmlElementInterface */
+    private $htmlElement;
 
     /**
-     * @param \Laminas\View\Helper\EscapeHtml          $escaper
-     * @param \Laminas\View\Helper\EscapeHtmlAttr      $escapeHtmlAttr
-     * @param \Laminas\I18n\View\Helper\Translate|null $translator
+     * @param \Laminas\View\Helper\EscapeHtml                $escaper
+     * @param \Mezzio\Navigation\Helper\HtmlElementInterface $htmlElement
+     * @param \Laminas\I18n\View\Helper\Translate|null       $translator
      */
-    public function __construct(EscapeHtml $escaper, EscapeHtmlAttr $escapeHtmlAttr, ?Translate $translator = null)
+    public function __construct(EscapeHtml $escaper, HtmlElementInterface $htmlElement, ?Translate $translator = null)
     {
-        $this->escaper        = $escaper;
-        $this->escapeHtmlAttr = $escapeHtmlAttr;
-        $this->translator     = $translator;
+        $this->escaper     = $escaper;
+        $this->translator  = $translator;
+        $this->htmlElement = $htmlElement;
     }
 
     /**
@@ -87,82 +85,10 @@ final class Htmlify implements HtmlifyInterface
             array_flip(['lastmod', 'changefreq', 'priority'])
         );
 
-        $html = '<' . $element . $this->htmlAttribs($prefix, $attribs) . '>';
-
         if (true === $escapeLabel) {
             $label = ($this->escaper)($label);
         }
 
-        return $html . $label . '</' . $element . '>';
-    }
-
-    /**
-     * Converts an associative array to a string of tag attributes.
-     *
-     * Overloads {@link \Laminas\View\Helper\AbstractHtmlElement::htmlAttribs()}.
-     *
-     * @param string $prefix
-     * @param array  $attribs an array where each key-value pair is converted
-     *                        to an attribute name and value
-     *
-     * @return string
-     */
-    private function htmlAttribs(string $prefix, array $attribs): string
-    {
-        // filter out null values and empty string values
-        foreach ($attribs as $key => $value) {
-            if (null !== $value && (!is_string($value) || mb_strlen($value))) {
-                continue;
-            }
-
-            unset($attribs[$key]);
-        }
-
-        $xhtml = '';
-
-        foreach ($attribs as $key => $val) {
-            $key = ($this->escaper)($key);
-
-            if (0 === mb_strpos($key, 'on') || ('constraints' === $key)) {
-                // Don't escape event attributes; _do_ substitute double quotes with singles
-                if (!is_scalar($val)) {
-                    // non-scalar data should be cast to JSON first
-                    $val = Json::encode($val);
-                }
-            } else {
-                if (is_array($val)) {
-                    $val = implode(' ', $val);
-                }
-            }
-
-            $val = ($this->escapeHtmlAttr)($val);
-
-            if ('id' === $key) {
-                $val = $this->normalizeId($prefix, $val);
-            }
-
-            if (false !== mb_strpos($val, '"')) {
-                $xhtml .= sprintf(' %s=\'%s\'', $key, $val);
-            } else {
-                $xhtml .= sprintf(' %s="%s"', $key, $val);
-            }
-        }
-
-        return $xhtml;
-    }
-
-    /**
-     * Normalize an ID
-     *
-     * @param string $prefix
-     * @param string $value
-     *
-     * @return string
-     */
-    private function normalizeId(string $prefix, string $value): string
-    {
-        $prefix = mb_strtolower(trim(mb_substr($prefix, (int) mb_strrpos($prefix, '\\')), '\\'));
-
-        return $prefix . '-' . $value;
+        return $this->htmlElement->toHtml($element, $attribs, $label, $prefix);
     }
 }
