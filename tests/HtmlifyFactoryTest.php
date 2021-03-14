@@ -13,11 +13,13 @@ namespace MezzioTest\Navigation\Helper;
 
 use Interop\Container\ContainerInterface;
 use Laminas\I18n\View\Helper\Translate;
+use Laminas\ServiceManager\PluginManagerInterface;
 use Laminas\View\Helper\EscapeHtml;
-use Laminas\View\Helper\EscapeHtmlAttr;
 use Laminas\View\HelperPluginManager;
+use Mezzio\Navigation\Helper\HtmlElementInterface;
 use Mezzio\Navigation\Helper\Htmlify;
 use Mezzio\Navigation\Helper\HtmlifyFactory;
+use Mezzio\Navigation\Helper\PluginManager;
 use PHPUnit\Framework\TestCase;
 
 final class HtmlifyFactoryTest extends TestCase
@@ -41,16 +43,24 @@ final class HtmlifyFactoryTest extends TestCase
      */
     public function testInvocationWithoutTranslator(): void
     {
-        $escapeHtml     = $this->createMock(EscapeHtml::class);
-        $escapeHtmlAttr = $this->createMock(EscapeHtmlAttr::class);
+        $escapeHtml  = $this->createMock(EscapeHtml::class);
+        $htmlElement = $this->createMock(HtmlElementInterface::class);
+
+        $pluginManager = $this->getMockBuilder(PluginManagerInterface::class)
+            ->disableOriginalConstructor()
+            ->getMock();
+        $pluginManager->expects(self::once())
+            ->method('get')
+            ->with(HtmlElementInterface::class)
+            ->willReturn($htmlElement);
 
         $helperPluginManager = $this->getMockBuilder(HelperPluginManager::class)
             ->disableOriginalConstructor()
             ->getMock();
-        $helperPluginManager->expects(self::exactly(2))
+        $helperPluginManager->expects(self::once())
             ->method('get')
-            ->withConsecutive([EscapeHtml::class], [EscapeHtmlAttr::class])
-            ->willReturnOnConsecutiveCalls($escapeHtml, $escapeHtmlAttr);
+            ->with(EscapeHtml::class)
+            ->willReturn($escapeHtml);
         $helperPluginManager->expects(self::once())
             ->method('has')
             ->with(Translate::class)
@@ -59,10 +69,10 @@ final class HtmlifyFactoryTest extends TestCase
         $container = $this->getMockBuilder(ContainerInterface::class)
             ->disableOriginalConstructor()
             ->getMock();
-        $container->expects(self::once())
+        $container->expects(self::exactly(2))
             ->method('get')
-            ->with(HelperPluginManager::class)
-            ->willReturn($helperPluginManager);
+            ->withConsecutive([PluginManager::class], [HelperPluginManager::class])
+            ->willReturnOnConsecutiveCalls($pluginManager, $helperPluginManager);
 
         \assert($container instanceof ContainerInterface);
         $helper = ($this->factory)($container);
@@ -79,16 +89,24 @@ final class HtmlifyFactoryTest extends TestCase
     public function testInvocationWithTranslator(): void
     {
         $escapeHtml      = $this->createMock(EscapeHtml::class);
-        $escapeHtmlAttr  = $this->createMock(EscapeHtmlAttr::class);
+        $htmlElement     = $this->createMock(HtmlElementInterface::class);
         $translatePlugin = $this->createMock(Translate::class);
+
+        $pluginManager = $this->getMockBuilder(PluginManagerInterface::class)
+            ->disableOriginalConstructor()
+            ->getMock();
+        $pluginManager->expects(self::once())
+            ->method('get')
+            ->with(HtmlElementInterface::class)
+            ->willReturn($htmlElement);
 
         $helperPluginManager = $this->getMockBuilder(HelperPluginManager::class)
             ->disableOriginalConstructor()
             ->getMock();
-        $helperPluginManager->expects(self::exactly(3))
+        $helperPluginManager->expects(self::exactly(2))
             ->method('get')
-            ->withConsecutive([Translate::class], [EscapeHtml::class], [EscapeHtmlAttr::class])
-            ->willReturnOnConsecutiveCalls($translatePlugin, $escapeHtml, $escapeHtmlAttr);
+            ->withConsecutive([Translate::class], [EscapeHtml::class])
+            ->willReturnOnConsecutiveCalls($translatePlugin, $escapeHtml);
         $helperPluginManager->expects(self::once())
             ->method('has')
             ->with(Translate::class)
@@ -97,10 +115,10 @@ final class HtmlifyFactoryTest extends TestCase
         $container = $this->getMockBuilder(ContainerInterface::class)
             ->disableOriginalConstructor()
             ->getMock();
-        $container->expects(self::once())
+        $container->expects(self::exactly(2))
             ->method('get')
-            ->with(HelperPluginManager::class)
-            ->willReturn($helperPluginManager);
+            ->withConsecutive([PluginManager::class], [HelperPluginManager::class])
+            ->willReturnOnConsecutiveCalls($pluginManager, $helperPluginManager);
 
         \assert($container instanceof ContainerInterface);
         $helper = ($this->factory)($container);

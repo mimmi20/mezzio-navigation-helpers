@@ -1,14 +1,14 @@
 # mezzio helpers
 
-[![Continuous Integration](https://github.com/mimmi20/mezzio-navigation-helpers/workflows/Continuous Integration/badge.svg?branch=master)](https://github.com/mimmi20/mezzio-navigation-helpers/actions)
-[![Close stale issues and pull requests](https://github.com/mimmi20/mezzio-navigation-helpers/workflows/Close stale issues and pull requests/badge.svg?branch=master)](https://github.com/mimmi20/mezzio-navigation-helpers/actions)
-[![Release](https://github.com/mimmi20/mezzio-navigation-helpers/workflows/Release/badge.svg?branch=master)](https://github.com/mimmi20/mezzio-navigation-helpers/actions)
-[![Renew License](https://github.com/mimmi20/mezzio-navigation-helpers/workflows/Renew License/badge.svg?branch=master)](https://github.com/mimmi20/mezzio-navigation-helpers/actions)
+[![Latest Stable Version](https://poser.pugx.org/mimmi20/mezzio-navigation-helpers/v/stable?format=flat-square)](https://packagist.org/packages/mimmi20/mezzio-navigation-helpers)
+[![Latest Unstable Version](https://poser.pugx.org/mimmi20/mezzio-navigation-helpers/v/unstable?format=flat-square)](https://packagist.org/packages/mimmi20/mezzio-navigation-helpers)
+[![License](https://poser.pugx.org/mimmi20/mezzio-navigation-helpers/license?format=flat-square)](https://packagist.org/packages/mimmi20/mezzio-navigation-helpers)
 
-[![Code Coverage](https://codecov.io/gh/mimmi20/mezzio-navigation-helpers/branch/master/graph/badge.svg)](https://codecov.io/gh/mimmi20/mezzio-navigation-helpers)
+## Code Status
 
-[![Latest Stable Version](https://poser.pugx.org/mimmi20/mezzio-navigation-helpers/v/stable)](https://packagist.org/packages/mimmi20/mezzio-navigation-helpers)
-[![Total Downloads](https://poser.pugx.org/mimmi20/mezzio-navigation-helpers/downloads)](https://packagist.org/packages/mimmi20/mezzio-navigation-helpers)
+[![codecov](https://codecov.io/gh/mimmi20/mezzio-navigation-helpers/branch/master/graph/badge.svg)](https://codecov.io/gh/mimmi20/mezzio-navigation-helpers)
+[![Average time to resolve an issue](http://isitmaintained.com/badge/resolution/mimmi20/mezzio-navigation-helpers.svg)](http://isitmaintained.com/project/mimmi20/mezzio-navigation-helpers "Average time to resolve an issue")
+[![Percentage of issues still open](http://isitmaintained.com/badge/open/mimmi20/mezzio-navigation-helpers.svg)](http://isitmaintained.com/project/mimmi20/mezzio-navigation-helpers "Percentage of issues still open")
 
 ## Installation
 
