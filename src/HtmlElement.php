@@ -62,7 +62,7 @@ final class HtmlElement implements HtmlElementInterface
         // filter out empty string values
         $attribs = array_filter(
             $attribs,
-            static fn ($value): bool => !is_string($value) || mb_strlen($value)
+            static fn ($value): bool => null !== $value && (!is_string($value) || mb_strlen($value))
         );
 
         $xhtml = '';
@@ -70,7 +70,7 @@ final class HtmlElement implements HtmlElementInterface
         foreach ($attribs as $key => $val) {
             $key = ($this->escaper)($key);
 
-            if (null === $val) {
+            if (true === $val) {
                 $xhtml .= sprintf(' %s', $key);
 
                 continue;
