@@ -22,8 +22,15 @@ interface HtmlifyInterface extends HelperInterface
      * @param PageInterface $page               page to generate HTML for
      * @param bool          $escapeLabel        Whether or not to escape the label
      * @param bool          $addClassToListItem Whether or not to add the page class to the list item
+     * @param string[]      $attributes
      *
      * @return string HTML string (<a href="…">Label</a>)
      */
-    public function toHtml(string $prefix, PageInterface $page, bool $escapeLabel = true, bool $addClassToListItem = false): string;
+    public function toHtml(
+        string $prefix,
+        PageInterface $page,
+        bool $escapeLabel = true,
+        bool $addClassToListItem = false,
+        array $attributes = []
+    ): string;
 }

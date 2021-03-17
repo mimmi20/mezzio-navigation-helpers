@@ -45,11 +45,17 @@ final class Htmlify implements HtmlifyInterface
      * @param PageInterface $page               page to generate HTML for
      * @param bool          $escapeLabel        Whether or not to escape the label
      * @param bool          $addClassToListItem Whether or not to add the page class to the list item
+     * @param string[]      $attributes
      *
      * @return string HTML string (<a href="…">Label</a>)
      */
-    public function toHtml(string $prefix, PageInterface $page, bool $escapeLabel = true, bool $addClassToListItem = false): string
-    {
+    public function toHtml(
+        string $prefix,
+        PageInterface $page,
+        bool $escapeLabel = true,
+        bool $addClassToListItem = false,
+        array $attributes = []
+    ): string {
         $label = (string) $page->getLabel();
         $title = (string) $page->getTitle();
 
@@ -59,10 +65,13 @@ final class Htmlify implements HtmlifyInterface
         }
 
         // get attribs for element
-        $attribs = [
-            'id' => $page->getId(),
-            'title' => $title,
-        ];
+        $attribs = array_merge(
+            $attributes,
+            [
+                'id' => $page->getId(),
+                'title' => $title,
+            ]
+        );
 
         if (false === $addClassToListItem) {
             $attribs['class'] = $page->getClass();
