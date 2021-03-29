@@ -9,23 +9,23 @@
  */
 
 declare(strict_types = 1);
+
 namespace Mezzio\Navigation\Helper;
 
 use Laminas\View\Exception\DomainException;
 use Mezzio\Navigation\Page\PageInterface;
 
+use function array_filter;
+use function in_array;
+use function sprintf;
+use function ucfirst;
+
 final class FindFromProperty implements FindFromPropertyInterface
 {
-    /** @var AcceptHelperInterface */
-    private $acceptHelper;
+    private AcceptHelperInterface $acceptHelper;
 
-    /** @var ConvertToPagesInterface */
-    private $convertToPages;
+    private ConvertToPagesInterface $convertToPages;
 
-    /**
-     * @param AcceptHelperInterface   $acceptHelper
-     * @param ConvertToPagesInterface $convertToPages
-     */
     public function __construct(AcceptHelperInterface $acceptHelper, ConvertToPagesInterface $convertToPages)
     {
         $this->acceptHelper   = $acceptHelper;
@@ -40,9 +40,9 @@ final class FindFromProperty implements FindFromPropertyInterface
      * @param string        $rel  relation, 'rel' or 'rev'
      * @param string        $type link type, e.g. 'start', 'next'
      *
-     * @throws \Laminas\View\Exception\DomainException
+     * @return array<PageInterface>
      *
-     * @return PageInterface[]
+     * @throws DomainException
      */
     public function find(PageInterface $page, string $rel, string $type): array
     {

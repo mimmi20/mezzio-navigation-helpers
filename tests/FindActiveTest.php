@@ -9,6 +9,7 @@
  */
 
 declare(strict_types = 1);
+
 namespace MezzioTest\Navigation\Helper;
 
 use Mezzio\Navigation\Helper\AcceptHelperInterface;
@@ -16,16 +17,16 @@ use Mezzio\Navigation\Helper\FindActive;
 use Mezzio\Navigation\Navigation;
 use Mezzio\Navigation\Page\PageInterface;
 use Mezzio\Navigation\Page\Uri;
+use PHPUnit\Framework\Exception;
 use PHPUnit\Framework\TestCase;
+use SebastianBergmann\RecursionContext\InvalidArgumentException;
 
 final class FindActiveTest extends TestCase
 {
     /**
-     * @throws \PHPUnit\Framework\Exception
-     * @throws \SebastianBergmann\RecursionContext\InvalidArgumentException
+     * @throws Exception
+     * @throws InvalidArgumentException
      * @throws \Mezzio\Navigation\Exception\InvalidArgumentException
-     *
-     * @return void
      */
     public function testFindActiveNoActivePages(): void
     {
@@ -74,11 +75,9 @@ final class FindActiveTest extends TestCase
     }
 
     /**
-     * @throws \PHPUnit\Framework\Exception
-     * @throws \SebastianBergmann\RecursionContext\InvalidArgumentException
+     * @throws Exception
+     * @throws InvalidArgumentException
      * @throws \Mezzio\Navigation\Exception\InvalidArgumentException
-     *
-     * @return void
      */
     public function testFindActiveOneActivePage(): void
     {
@@ -134,11 +133,9 @@ final class FindActiveTest extends TestCase
     }
 
     /**
-     * @throws \PHPUnit\Framework\Exception
-     * @throws \SebastianBergmann\RecursionContext\InvalidArgumentException
+     * @throws Exception
+     * @throws InvalidArgumentException
      * @throws \Mezzio\Navigation\Exception\InvalidArgumentException
-     *
-     * @return void
      */
     public function testFindActiveOneActivePageOutOfRange(): void
     {
@@ -173,11 +170,9 @@ final class FindActiveTest extends TestCase
     }
 
     /**
-     * @throws \PHPUnit\Framework\Exception
-     * @throws \SebastianBergmann\RecursionContext\InvalidArgumentException
+     * @throws Exception
+     * @throws InvalidArgumentException
      * @throws \Mezzio\Navigation\Exception\InvalidArgumentException
-     *
-     * @return void
      */
     public function testFindActiveOneActivePageRecursive(): void
     {
@@ -230,11 +225,9 @@ final class FindActiveTest extends TestCase
     }
 
     /**
-     * @throws \PHPUnit\Framework\Exception
-     * @throws \SebastianBergmann\RecursionContext\InvalidArgumentException
+     * @throws Exception
+     * @throws InvalidArgumentException
      * @throws \Mezzio\Navigation\Exception\InvalidArgumentException
-     *
-     * @return void
      */
     public function testFindActiveOneActivePageRecursive2(): void
     {
@@ -304,11 +297,9 @@ final class FindActiveTest extends TestCase
     }
 
     /**
-     * @throws \PHPUnit\Framework\Exception
-     * @throws \SebastianBergmann\RecursionContext\InvalidArgumentException
+     * @throws Exception
+     * @throws InvalidArgumentException
      * @throws \Mezzio\Navigation\Exception\InvalidArgumentException
-     *
-     * @return void
      */
     public function testFindActiveOneActivePageRecursive3(): void
     {
@@ -378,11 +369,9 @@ final class FindActiveTest extends TestCase
     }
 
     /**
-     * @throws \PHPUnit\Framework\Exception
-     * @throws \SebastianBergmann\RecursionContext\InvalidArgumentException
+     * @throws Exception
+     * @throws InvalidArgumentException
      * @throws \Mezzio\Navigation\Exception\InvalidArgumentException
-     *
-     * @return void
      */
     public function testFindActiveOneActivePageRecursive4(): void
     {

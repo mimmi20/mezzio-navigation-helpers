@@ -9,31 +9,30 @@
  */
 
 declare(strict_types = 1);
+
 namespace MezzioTest\Navigation\Helper;
 
 use Interop\Container\ContainerInterface;
 use Mezzio\Navigation\Helper\PluginManager;
 use Mezzio\Navigation\Helper\PluginManagerFactory;
+use PHPUnit\Framework\Exception;
 use PHPUnit\Framework\TestCase;
+use SebastianBergmann\RecursionContext\InvalidArgumentException;
+
+use function assert;
 
 final class PluginManagerFactoryTest extends TestCase
 {
-    /** @var PluginManagerFactory */
-    private $factory;
+    private PluginManagerFactory $factory;
 
-    /**
-     * @return void
-     */
     protected function setUp(): void
     {
         $this->factory = new PluginManagerFactory();
     }
 
     /**
-     * @throws \PHPUnit\Framework\Exception
-     * @throws \SebastianBergmann\RecursionContext\InvalidArgumentException
-     *
-     * @return void
+     * @throws Exception
+     * @throws InvalidArgumentException
      */
     public function testInvocationWithoutTranslator(): void
     {
@@ -43,7 +42,7 @@ final class PluginManagerFactoryTest extends TestCase
         $container->expects(self::never())
             ->method('get');
 
-        \assert($container instanceof ContainerInterface);
+        assert($container instanceof ContainerInterface);
         $helper = ($this->factory)($container);
 
         self::assertInstanceOf(PluginManager::class, $helper);

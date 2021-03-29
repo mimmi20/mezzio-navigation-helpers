@@ -9,6 +9,7 @@
  */
 
 declare(strict_types = 1);
+
 namespace Mezzio\Navigation\Helper;
 
 use Interop\Container\ContainerInterface;
@@ -17,22 +18,23 @@ use Laminas\ServiceManager\PluginManagerInterface;
 use Laminas\View\Helper\EscapeHtml;
 use Laminas\View\HelperPluginManager as ViewHelperPluginManager;
 use Mezzio\Navigation\Helper\PluginManager as HelperPluginManager;
+use Psr\Container\ContainerExceptionInterface;
+
+use function assert;
+use function get_class;
+use function sprintf;
 
 final class HtmlifyFactory
 {
     /**
      * Create and return a navigation view helper instance.
      *
-     * @param ContainerInterface $container
-     *
-     * @throws \Psr\Container\ContainerExceptionInterface
-     *
-     * @return Htmlify
+     * @throws ContainerExceptionInterface
      */
     public function __invoke(ContainerInterface $container): Htmlify
     {
         $helperPluginManager = $container->get(HelperPluginManager::class);
-        \assert(
+        assert(
             $helperPluginManager instanceof PluginManagerInterface,
             sprintf(
                 '$helperPluginManager should be an Instance of %s, but was %s',

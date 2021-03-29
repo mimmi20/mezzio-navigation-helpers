@@ -9,6 +9,7 @@
  */
 
 declare(strict_types = 1);
+
 namespace MezzioTest\Navigation\Helper;
 
 use Interop\Container\ContainerInterface;
@@ -17,26 +18,24 @@ use Laminas\View\Helper\EscapeHtmlAttr;
 use Laminas\View\HelperPluginManager;
 use Mezzio\Navigation\Helper\HtmlElement;
 use Mezzio\Navigation\Helper\HtmlElementFactory;
+use PHPUnit\Framework\Exception;
 use PHPUnit\Framework\TestCase;
+use SebastianBergmann\RecursionContext\InvalidArgumentException;
+
+use function assert;
 
 final class HtmlElementFactoryTest extends TestCase
 {
-    /** @var HtmlElementFactory */
-    private $factory;
+    private HtmlElementFactory $factory;
 
-    /**
-     * @return void
-     */
     protected function setUp(): void
     {
         $this->factory = new HtmlElementFactory();
     }
 
     /**
-     * @throws \PHPUnit\Framework\Exception
-     * @throws \SebastianBergmann\RecursionContext\InvalidArgumentException
-     *
-     * @return void
+     * @throws Exception
+     * @throws InvalidArgumentException
      */
     public function testInvocation(): void
     {
@@ -61,7 +60,7 @@ final class HtmlElementFactoryTest extends TestCase
             ->with(HelperPluginManager::class)
             ->willReturn($helperPluginManager);
 
-        \assert($container instanceof ContainerInterface);
+        assert($container instanceof ContainerInterface);
         $helper = ($this->factory)($container);
 
         self::assertInstanceOf(HtmlElement::class, $helper);

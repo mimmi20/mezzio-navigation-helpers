@@ -9,6 +9,7 @@
  */
 
 declare(strict_types = 1);
+
 namespace Mezzio\Navigation\Helper;
 
 final class ConfigProvider
@@ -16,9 +17,9 @@ final class ConfigProvider
     /**
      * Return general-purpose laminas-navigation configuration.
      *
-     * @return array
+     * @return array<string, array<string, array<string, string>>>
      */
-    public function __invoke()
+    public function __invoke(): array
     {
         return [
             'dependencies' => $this->getDependencyConfig(),
@@ -28,9 +29,9 @@ final class ConfigProvider
     /**
      * Return application-level dependency configuration.
      *
-     * @return array
+     * @return array<string, array<string, string>>
      */
-    public function getDependencyConfig()
+    public function getDependencyConfig(): array
     {
         return [
             'factories' => [

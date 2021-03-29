@@ -9,9 +9,11 @@
  */
 
 declare(strict_types = 1);
+
 namespace Mezzio\Navigation\Helper;
 
 use Mezzio\Navigation\ContainerInterface;
+use Mezzio\Navigation\Page\PageInterface;
 
 interface FindActiveInterface extends HelperInterface
 {
@@ -32,8 +34,8 @@ interface FindActiveInterface extends HelperInterface
      *                                      null value means no maximum
      *                                      depth required.
      *
-     * @return array an associative array with the values 'depth' and 'page',
-     *               or an empty array if not found
+     * @return array<string, int|PageInterface|null> an associative array with the values 'depth' and 'page',
+     *                       or an empty array if not found
      */
     public function find(ContainerInterface $container, ?int $minDepth, ?int $maxDepth): array;
 }

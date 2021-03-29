@@ -9,6 +9,7 @@
  */
 
 declare(strict_types = 1);
+
 namespace Mezzio\Navigation\Helper;
 
 use Laminas\Log\Logger;
@@ -19,18 +20,18 @@ use Mezzio\Navigation\Page\PageFactoryInterface;
 use Mezzio\Navigation\Page\PageInterface;
 use Traversable;
 
+use function array_map;
+use function is_array;
+use function is_numeric;
+use function is_string;
+use function key;
+
 final class ConvertToPages implements ConvertToPagesInterface
 {
-    /** @var \Laminas\Log\Logger */
-    private $logger;
+    private Logger $logger;
 
-    /** @var PageFactoryInterface */
-    private $pageFactory;
+    private PageFactoryInterface $pageFactory;
 
-    /**
-     * @param Logger               $logger
-     * @param PageFactoryInterface $pageFactory
-     */
     public function __construct(Logger $logger, PageFactoryInterface $pageFactory)
     {
         $this->logger      = $logger;
@@ -40,10 +41,10 @@ final class ConvertToPages implements ConvertToPagesInterface
     /**
      * Converts a $mixed value to an array of pages
      *
-     * @param array|ContainerInterface|PageInterface|string|Traversable $mixed     mixed value to get page(s) from
-     * @param bool                                                      $recursive whether $value should be looped if it is an array or a config
+     * @param array<string, array<mixed>|string>|ContainerInterface|PageInterface|string|Traversable<string, array<mixed>|string> $mixed     mixed value to get page(s) from
+     * @param bool                                                                                                                $recursive whether $value should be looped if it is an array or a config
      *
-     * @return PageInterface[]
+     * @return array<PageInterface>
      */
     public function convert($mixed, bool $recursive = true): array
     {

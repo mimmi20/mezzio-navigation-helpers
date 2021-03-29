@@ -9,24 +9,32 @@
  */
 
 declare(strict_types = 1);
+
 namespace Mezzio\Navigation\Helper;
 
 use Laminas\Json\Json;
 use Laminas\View\Helper\EscapeHtml;
 use Laminas\View\Helper\EscapeHtmlAttr;
 
+use function array_filter;
+use function implode;
+use function is_array;
+use function is_scalar;
+use function is_string;
+use function mb_strlen;
+use function mb_strpos;
+use function mb_strrpos;
+use function mb_strtolower;
+use function mb_substr;
+use function sprintf;
+use function trim;
+
 final class HtmlElement implements HtmlElementInterface
 {
-    /** @var EscapeHtml */
-    private $escaper;
+    private EscapeHtml $escaper;
 
-    /** @var EscapeHtmlAttr */
-    private $escapeHtmlAttr;
+    private EscapeHtmlAttr $escapeHtmlAttr;
 
-    /**
-     * @param \Laminas\View\Helper\EscapeHtml     $escaper
-     * @param \Laminas\View\Helper\EscapeHtmlAttr $escapeHtmlAttr
-     */
     public function __construct(EscapeHtml $escaper, EscapeHtmlAttr $escapeHtmlAttr)
     {
         $this->escaper        = $escaper;
@@ -36,10 +44,7 @@ final class HtmlElement implements HtmlElementInterface
     /**
      * Returns an HTML string
      *
-     * @param string $element
-     * @param array  $attribs
-     * @param string $content
-     * @param string $prefix
+     * @param array<string, array<string>|bool|string> $attribs
      *
      * @return string HTML string (<a href="…">Label</a>)
      */
@@ -51,11 +56,8 @@ final class HtmlElement implements HtmlElementInterface
     /**
      * Converts an associative array to a string of tag attributes.
      *
-     * @param string $prefix
-     * @param array  $attribs an array where each key-value pair is converted
-     *                        to an attribute name and value
-     *
-     * @return string
+     * @param array<string, array<string>|bool|string> $attribs an array where each key-value pair is converted
+     *                                                          to an attribute name and value
      */
     private function htmlAttribs(string $prefix, array $attribs): string
     {
@@ -104,11 +106,6 @@ final class HtmlElement implements HtmlElementInterface
 
     /**
      * Normalize an ID
-     *
-     * @param string $prefix
-     * @param string $value
-     *
-     * @return string
      */
     private function normalizeId(string $prefix, string $value): string
     {

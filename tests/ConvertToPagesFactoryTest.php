@@ -9,6 +9,7 @@
  */
 
 declare(strict_types = 1);
+
 namespace MezzioTest\Navigation\Helper;
 
 use Interop\Container\ContainerInterface;
@@ -16,26 +17,24 @@ use Laminas\Log\Logger;
 use Mezzio\Navigation\Helper\ConvertToPages;
 use Mezzio\Navigation\Helper\ConvertToPagesFactory;
 use Mezzio\Navigation\Page\PageFactoryInterface;
+use PHPUnit\Framework\Exception;
 use PHPUnit\Framework\TestCase;
+use SebastianBergmann\RecursionContext\InvalidArgumentException;
+
+use function assert;
 
 final class ConvertToPagesFactoryTest extends TestCase
 {
-    /** @var ConvertToPagesFactory */
-    private $factory;
+    private ConvertToPagesFactory $factory;
 
-    /**
-     * @return void
-     */
     protected function setUp(): void
     {
         $this->factory = new ConvertToPagesFactory();
     }
 
     /**
-     * @throws \PHPUnit\Framework\Exception
-     * @throws \SebastianBergmann\RecursionContext\InvalidArgumentException
-     *
-     * @return void
+     * @throws Exception
+     * @throws InvalidArgumentException
      */
     public function testInvocation(): void
     {
@@ -50,7 +49,7 @@ final class ConvertToPagesFactoryTest extends TestCase
             ->withConsecutive([Logger::class], [PageFactoryInterface::class])
             ->willReturnOnConsecutiveCalls($logger, $pageFactory);
 
-        \assert($container instanceof ContainerInterface);
+        assert($container instanceof ContainerInterface);
         $helper = ($this->factory)($container);
 
         self::assertInstanceOf(ConvertToPages::class, $helper);

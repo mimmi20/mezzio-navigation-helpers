@@ -9,6 +9,7 @@
  */
 
 declare(strict_types = 1);
+
 namespace MezzioTest\Navigation\Helper;
 
 use Interop\Container\ContainerInterface;
@@ -16,16 +17,18 @@ use Laminas\ServiceManager\Exception\ServiceNotFoundException;
 use Laminas\View\Exception\InvalidArgumentException;
 use Mezzio\Navigation\Helper\ContainerParser;
 use Mezzio\Navigation\Navigation;
+use PHPUnit\Framework\Exception;
 use PHPUnit\Framework\TestCase;
+
+use function assert;
+use function sprintf;
 
 final class ContainerParserTest extends TestCase
 {
     /**
-     * @throws \PHPUnit\Framework\Exception
+     * @throws Exception
      * @throws \SebastianBergmann\RecursionContext\InvalidArgumentException
-     * @throws \Laminas\View\Exception\InvalidArgumentException
-     *
-     * @return void
+     * @throws InvalidArgumentException
      */
     public function testParseContainerWithNull(): void
     {
@@ -37,17 +40,15 @@ final class ContainerParserTest extends TestCase
         $serviceLocator->expects(self::never())
             ->method('get');
 
-        \assert($serviceLocator instanceof ContainerInterface);
+        assert($serviceLocator instanceof ContainerInterface);
         $helper = new ContainerParser($serviceLocator);
 
         self::assertNull($helper->parseContainer(null));
     }
 
     /**
-     * @throws \Laminas\View\Exception\InvalidArgumentException
-     * @throws \PHPUnit\Framework\Exception
-     *
-     * @return void
+     * @throws InvalidArgumentException
+     * @throws Exception
      */
     public function testParseContainerWithNumber(): void
     {
@@ -59,7 +60,7 @@ final class ContainerParserTest extends TestCase
         $serviceLocator->expects(self::never())
             ->method('get');
 
-        \assert($serviceLocator instanceof ContainerInterface);
+        assert($serviceLocator instanceof ContainerInterface);
         $helper = new ContainerParser($serviceLocator);
 
         $this->expectException(InvalidArgumentException::class);
@@ -70,10 +71,8 @@ final class ContainerParserTest extends TestCase
     }
 
     /**
-     * @throws \PHPUnit\Framework\Exception
-     * @throws \Laminas\View\Exception\InvalidArgumentException
-     *
-     * @return void
+     * @throws Exception
+     * @throws InvalidArgumentException
      */
     public function testParseContainerWithStringDefaultNotFound(): void
     {
@@ -89,7 +88,7 @@ final class ContainerParserTest extends TestCase
             ->with(Navigation::class)
             ->willThrowException(new ServiceNotFoundException('test'));
 
-        \assert($serviceLocator instanceof ContainerInterface);
+        assert($serviceLocator instanceof ContainerInterface);
         $helper = new ContainerParser($serviceLocator);
 
         $this->expectException(InvalidArgumentException::class);
@@ -100,11 +99,9 @@ final class ContainerParserTest extends TestCase
     }
 
     /**
-     * @throws \PHPUnit\Framework\Exception
+     * @throws Exception
      * @throws \SebastianBergmann\RecursionContext\InvalidArgumentException
-     * @throws \Laminas\View\Exception\InvalidArgumentException
-     *
-     * @return void
+     * @throws InvalidArgumentException
      */
     public function testParseContainerWithStringDefaultFound(): void
     {
@@ -122,17 +119,15 @@ final class ContainerParserTest extends TestCase
             ->with(Navigation::class)
             ->willReturn($container);
 
-        \assert($serviceLocator instanceof ContainerInterface);
+        assert($serviceLocator instanceof ContainerInterface);
         $helper = new ContainerParser($serviceLocator);
 
         self::assertSame($container, $helper->parseContainer('default'));
     }
 
     /**
-     * @throws \PHPUnit\Framework\Exception
-     * @throws \Laminas\View\Exception\InvalidArgumentException
-     *
-     * @return void
+     * @throws Exception
+     * @throws InvalidArgumentException
      */
     public function testParseContainerWithStringNavigationNotFound(): void
     {
@@ -150,7 +145,7 @@ final class ContainerParserTest extends TestCase
             ->with($name)
             ->willThrowException(new ServiceNotFoundException('test'));
 
-        \assert($serviceLocator instanceof ContainerInterface);
+        assert($serviceLocator instanceof ContainerInterface);
         $helper = new ContainerParser($serviceLocator);
 
         $this->expectException(InvalidArgumentException::class);
@@ -161,11 +156,9 @@ final class ContainerParserTest extends TestCase
     }
 
     /**
-     * @throws \PHPUnit\Framework\Exception
+     * @throws Exception
      * @throws \SebastianBergmann\RecursionContext\InvalidArgumentException
-     * @throws \Laminas\View\Exception\InvalidArgumentException
-     *
-     * @return void
+     * @throws InvalidArgumentException
      */
     public function testParseContainerWithStringNavigationFound(): void
     {
@@ -184,17 +177,15 @@ final class ContainerParserTest extends TestCase
             ->with($name)
             ->willReturn($container);
 
-        \assert($serviceLocator instanceof ContainerInterface);
+        assert($serviceLocator instanceof ContainerInterface);
         $helper = new ContainerParser($serviceLocator);
 
         self::assertSame($container, $helper->parseContainer($name));
     }
 
     /**
-     * @throws \PHPUnit\Framework\Exception
-     * @throws \Laminas\View\Exception\InvalidArgumentException
-     *
-     * @return void
+     * @throws Exception
+     * @throws InvalidArgumentException
      */
     public function testParseContainerWithStringDefaultAndNavigationNotFound(): void
     {
@@ -212,7 +203,7 @@ final class ContainerParserTest extends TestCase
             ->with($name)
             ->willThrowException(new ServiceNotFoundException('test'));
 
-        \assert($serviceLocator instanceof ContainerInterface);
+        assert($serviceLocator instanceof ContainerInterface);
         $helper = new ContainerParser($serviceLocator);
 
         $this->expectException(InvalidArgumentException::class);
@@ -223,11 +214,9 @@ final class ContainerParserTest extends TestCase
     }
 
     /**
-     * @throws \PHPUnit\Framework\Exception
+     * @throws Exception
      * @throws \SebastianBergmann\RecursionContext\InvalidArgumentException
-     * @throws \Laminas\View\Exception\InvalidArgumentException
-     *
-     * @return void
+     * @throws InvalidArgumentException
      */
     public function testParseContainerWithStringFound(): void
     {
@@ -244,18 +233,16 @@ final class ContainerParserTest extends TestCase
             ->with($name)
             ->willReturn($container);
 
-        \assert($serviceLocator instanceof ContainerInterface);
+        assert($serviceLocator instanceof ContainerInterface);
         $helper = new ContainerParser($serviceLocator);
 
         self::assertSame($container, $helper->parseContainer($name));
     }
 
     /**
-     * @throws \Laminas\View\Exception\InvalidArgumentException
+     * @throws InvalidArgumentException
      * @throws \SebastianBergmann\RecursionContext\InvalidArgumentException
-     * @throws \PHPUnit\Framework\Exception
-     *
-     * @return void
+     * @throws Exception
      */
     public function testParseContainerWithContainer(): void
     {
@@ -268,7 +255,7 @@ final class ContainerParserTest extends TestCase
         $serviceLocator->expects(self::never())
             ->method('get');
 
-        \assert($serviceLocator instanceof ContainerInterface);
+        assert($serviceLocator instanceof ContainerInterface);
         $helper = new ContainerParser($serviceLocator);
 
         self::assertSame($container, $helper->parseContainer($container));

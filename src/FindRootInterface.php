@@ -9,6 +9,7 @@
  */
 
 declare(strict_types = 1);
+
 namespace Mezzio\Navigation\Helper;
 
 use Mezzio\Navigation\ContainerInterface;
@@ -16,11 +17,6 @@ use Mezzio\Navigation\Page\PageInterface;
 
 interface FindRootInterface extends HelperInterface
 {
-    /**
-     * @param ContainerInterface|null $root
-     *
-     * @return void
-     */
     public function setRoot(?ContainerInterface $root): void;
 
     /**
@@ -30,10 +26,6 @@ interface FindRootInterface extends HelperInterface
      * container as the root container, and unset it when done rendering. This
      * makes sure finder methods will not traverse above the container given
      * to the render method.
-     *
-     * @param PageInterface $page
-     *
-     * @return ContainerInterface
      */
     public function find(PageInterface $page): ContainerInterface;
 }

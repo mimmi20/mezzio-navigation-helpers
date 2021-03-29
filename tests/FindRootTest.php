@@ -9,31 +9,30 @@
  */
 
 declare(strict_types = 1);
+
 namespace MezzioTest\Navigation\Helper;
 
 use Mezzio\Navigation\ContainerInterface;
 use Mezzio\Navigation\Helper\FindRoot;
 use Mezzio\Navigation\Page\PageInterface;
+use PHPUnit\Framework\Exception;
 use PHPUnit\Framework\TestCase;
+use SebastianBergmann\RecursionContext\InvalidArgumentException;
+
+use function assert;
 
 final class FindRootTest extends TestCase
 {
-    /** @var FindRoot */
-    private $findRoot;
+    private FindRoot $findRoot;
 
-    /**
-     * @return void
-     */
     protected function setUp(): void
     {
         $this->findRoot = new FindRoot();
     }
 
     /**
-     * @throws \PHPUnit\Framework\Exception
-     * @throws \SebastianBergmann\RecursionContext\InvalidArgumentException
-     *
-     * @return void
+     * @throws Exception
+     * @throws InvalidArgumentException
      */
     public function testSetRoot(): void
     {
@@ -45,23 +44,21 @@ final class FindRootTest extends TestCase
         $page->expects(self::never())
             ->method('getParent');
 
-        /* @var ContainerInterface $root */
+        assert($root instanceof ContainerInterface);
         $this->findRoot->setRoot($root);
 
-        /* @var PageInterface $page */
+        assert($page instanceof PageInterface);
         self::assertSame($root, $this->findRoot->find($page));
     }
 
     /**
-     * @throws \PHPUnit\Framework\Exception
-     * @throws \SebastianBergmann\RecursionContext\InvalidArgumentException
-     *
-     * @return void
+     * @throws Exception
+     * @throws InvalidArgumentException
      */
     public function testFindRootRecursive(): void
     {
         $root = $this->createMock(ContainerInterface::class);
-        \assert($root instanceof ContainerInterface);
+        assert($root instanceof ContainerInterface);
 
         $parentPage = $this->getMockBuilder(PageInterface::class)
             ->disableOriginalConstructor()
@@ -77,15 +74,13 @@ final class FindRootTest extends TestCase
             ->method('getParent')
             ->willReturn($parentPage);
 
-        /* @var PageInterface $page */
+        assert($page instanceof PageInterface);
         self::assertSame($root, $this->findRoot->find($page));
     }
 
     /**
-     * @throws \PHPUnit\Framework\Exception
-     * @throws \SebastianBergmann\RecursionContext\InvalidArgumentException
-     *
-     * @return void
+     * @throws Exception
+     * @throws InvalidArgumentException
      */
     public function testFindRootWithoutParent(): void
     {
@@ -96,7 +91,7 @@ final class FindRootTest extends TestCase
             ->method('getParent')
             ->willReturn(null);
 
-        /* @var PageInterface $page */
+        assert($page instanceof PageInterface);
         self::assertSame($page, $this->findRoot->find($page));
     }
 }

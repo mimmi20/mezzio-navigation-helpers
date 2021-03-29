@@ -9,23 +9,21 @@
  */
 
 declare(strict_types = 1);
+
 namespace Mezzio\Navigation\Helper;
 
 use Interop\Container\ContainerInterface;
 use Laminas\View\Helper\EscapeHtml;
 use Laminas\View\Helper\EscapeHtmlAttr;
 use Laminas\View\HelperPluginManager as ViewHelperPluginManager;
+use Psr\Container\ContainerExceptionInterface;
 
 final class HtmlElementFactory
 {
     /**
      * Create and return a navigation view helper instance.
      *
-     * @param ContainerInterface $container
-     *
-     * @throws \Psr\Container\ContainerExceptionInterface
-     *
-     * @return HtmlElement
+     * @throws ContainerExceptionInterface
      */
     public function __invoke(ContainerInterface $container): HtmlElement
     {

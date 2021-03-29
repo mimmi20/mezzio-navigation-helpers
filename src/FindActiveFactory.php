@@ -9,30 +9,36 @@
  */
 
 declare(strict_types = 1);
+
 namespace Mezzio\Navigation\Helper;
 
 use Interop\Container\ContainerInterface;
 use Laminas\ServiceManager\Factory\FactoryInterface;
 use Laminas\ServiceManager\PluginManagerInterface;
 use Mezzio\Navigation\Helper\PluginManager as HelperPluginManager;
+use Psr\Container\ContainerExceptionInterface;
+
+use function assert;
+use function get_class;
+use function sprintf;
 
 final class FindActiveFactory implements FactoryInterface
 {
     /**
      * Create and return a navigation view helper instance.
      *
-     * @param ContainerInterface $container
-     * @param string             $requestedName
-     * @param array|null         $options
+     * @param string            $requestedName
+     * @param array<mixed>|null $options
      *
-     * @throws \Psr\Container\ContainerExceptionInterface
+     * @throws ContainerExceptionInterface
      *
-     * @return FindActive
+     * @phpcsSuppress SlevomatCodingStandard.TypeHints.ParameterTypeHint.MissingNativeTypeHint
+     * @phpcsSuppress SlevomatCodingStandard.Functions.UnusedParameter.UnusedParameter
      */
     public function __invoke(ContainerInterface $container, $requestedName, ?array $options = null): FindActive
     {
         $helperPluginManager = $container->get(HelperPluginManager::class);
-        \assert(
+        assert(
             $helperPluginManager instanceof PluginManagerInterface,
             sprintf(
                 '$helperPluginManager should be an Instance of %s, but was %s',
@@ -49,7 +55,7 @@ final class FindActiveFactory implements FactoryInterface
                 'role' => $options['role'] ?? null,
             ]
         );
-        \assert($acceptHelper instanceof AcceptHelperInterface);
+        assert($acceptHelper instanceof AcceptHelperInterface);
 
         return new FindActive($acceptHelper);
     }

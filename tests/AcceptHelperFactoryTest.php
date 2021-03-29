@@ -9,32 +9,31 @@
  */
 
 declare(strict_types = 1);
+
 namespace MezzioTest\Navigation\Helper;
 
 use Interop\Container\ContainerInterface;
 use Mezzio\GenericAuthorization\AuthorizationInterface;
 use Mezzio\Navigation\Helper\AcceptHelper;
 use Mezzio\Navigation\Helper\AcceptHelperFactory;
+use PHPUnit\Framework\Exception;
 use PHPUnit\Framework\TestCase;
+use SebastianBergmann\RecursionContext\InvalidArgumentException;
+
+use function assert;
 
 final class AcceptHelperFactoryTest extends TestCase
 {
-    /** @var AcceptHelperFactory */
-    private $factory;
+    private AcceptHelperFactory $factory;
 
-    /**
-     * @return void
-     */
     protected function setUp(): void
     {
         $this->factory = new AcceptHelperFactory();
     }
 
     /**
-     * @throws \PHPUnit\Framework\Exception
-     * @throws \SebastianBergmann\RecursionContext\InvalidArgumentException
-     *
-     * @return void
+     * @throws Exception
+     * @throws InvalidArgumentException
      */
     public function testInvocationWithoutOptions(): void
     {
@@ -44,7 +43,7 @@ final class AcceptHelperFactoryTest extends TestCase
         $container->expects(self::never())
             ->method('get');
 
-        \assert($container instanceof ContainerInterface);
+        assert($container instanceof ContainerInterface);
         $helper = ($this->factory)($container, '');
 
         self::assertInstanceOf(AcceptHelper::class, $helper);
@@ -55,10 +54,8 @@ final class AcceptHelperFactoryTest extends TestCase
     }
 
     /**
-     * @throws \PHPUnit\Framework\Exception
-     * @throws \SebastianBergmann\RecursionContext\InvalidArgumentException
-     *
-     * @return void
+     * @throws Exception
+     * @throws InvalidArgumentException
      */
     public function testInvocationWithOptions(): void
     {
@@ -72,7 +69,7 @@ final class AcceptHelperFactoryTest extends TestCase
         $renderInvisible = true;
         $role            = 'test-role';
 
-        \assert($container instanceof ContainerInterface);
+        assert($container instanceof ContainerInterface);
         $helper = ($this->factory)(
             $container,
             '',
@@ -91,10 +88,8 @@ final class AcceptHelperFactoryTest extends TestCase
     }
 
     /**
-     * @throws \PHPUnit\Framework\Exception
-     * @throws \SebastianBergmann\RecursionContext\InvalidArgumentException
-     *
-     * @return void
+     * @throws Exception
+     * @throws InvalidArgumentException
      */
     public function testInvocationWithOptions2(): void
     {
@@ -108,7 +103,7 @@ final class AcceptHelperFactoryTest extends TestCase
         $renderInvisible = '1';
         $role            = null;
 
-        \assert($container instanceof ContainerInterface);
+        assert($container instanceof ContainerInterface);
         $helper = ($this->factory)(
             $container,
             '',
@@ -127,10 +122,8 @@ final class AcceptHelperFactoryTest extends TestCase
     }
 
     /**
-     * @throws \PHPUnit\Framework\Exception
-     * @throws \SebastianBergmann\RecursionContext\InvalidArgumentException
-     *
-     * @return void
+     * @throws Exception
+     * @throws InvalidArgumentException
      */
     public function testInvocationWithOptionsRuleNotString(): void
     {
@@ -144,7 +137,7 @@ final class AcceptHelperFactoryTest extends TestCase
         $renderInvisible = '1';
         $role            = [];
 
-        \assert($container instanceof ContainerInterface);
+        assert($container instanceof ContainerInterface);
         $helper = ($this->factory)(
             $container,
             '',

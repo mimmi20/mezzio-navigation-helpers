@@ -9,6 +9,7 @@
  */
 
 declare(strict_types = 1);
+
 namespace Mezzio\Navigation\Helper;
 
 use Interop\Container\ContainerInterface;
@@ -24,10 +25,6 @@ final class PluginManagerFactory
 {
     /**
      * Create and return a navigation view helper instance.
-     *
-     * @param ContainerInterface $container
-     *
-     * @return PluginManager
      */
     public function __invoke(ContainerInterface $container): PluginManager
     {
