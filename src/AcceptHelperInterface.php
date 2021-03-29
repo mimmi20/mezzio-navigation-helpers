@@ -9,6 +9,7 @@
  */
 
 declare(strict_types = 1);
+
 namespace Mezzio\Navigation\Helper;
 
 use Mezzio\Navigation\Page\PageInterface;

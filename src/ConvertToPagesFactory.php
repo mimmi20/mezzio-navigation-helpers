@@ -9,22 +9,20 @@
  */
 
 declare(strict_types = 1);
+
 namespace Mezzio\Navigation\Helper;
 
 use Interop\Container\ContainerInterface;
 use Laminas\Log\Logger;
 use Mezzio\Navigation\Page\PageFactoryInterface;
+use Psr\Container\ContainerExceptionInterface;
 
 final class ConvertToPagesFactory
 {
     /**
      * Create and return a navigation view helper instance.
      *
-     * @param ContainerInterface $container
-     *
-     * @throws \Psr\Container\ContainerExceptionInterface
-     *
-     * @return ConvertToPages
+     * @throws ContainerExceptionInterface
      */
     public function __invoke(ContainerInterface $container): ConvertToPages
     {

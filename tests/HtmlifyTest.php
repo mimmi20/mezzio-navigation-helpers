@@ -9,6 +9,7 @@
  */
 
 declare(strict_types = 1);
+
 namespace MezzioTest\Navigation\Helper;
 
 use Laminas\I18n\View\Helper\Translate;
@@ -16,15 +17,17 @@ use Laminas\View\Helper\EscapeHtml;
 use Mezzio\Navigation\Helper\HtmlElementInterface;
 use Mezzio\Navigation\Helper\Htmlify;
 use Mezzio\Navigation\Page\PageInterface;
+use PHPUnit\Framework\Exception;
 use PHPUnit\Framework\TestCase;
+use SebastianBergmann\RecursionContext\InvalidArgumentException;
+
+use function assert;
 
 final class HtmlifyTest extends TestCase
 {
     /**
-     * @throws \PHPUnit\Framework\Exception
-     * @throws \SebastianBergmann\RecursionContext\InvalidArgumentException
-     *
-     * @return void
+     * @throws Exception
+     * @throws InvalidArgumentException
      */
     public function testHtmlify(): void
     {
@@ -101,20 +104,18 @@ final class HtmlifyTest extends TestCase
             ->method('getCustomProperties')
             ->willReturn([]);
 
-        \assert($escapeHtml instanceof EscapeHtml);
-        \assert($htmlElement instanceof HtmlElementInterface);
-        \assert($translatePlugin instanceof Translate);
+        assert($escapeHtml instanceof EscapeHtml);
+        assert($htmlElement instanceof HtmlElementInterface);
+        assert($translatePlugin instanceof Translate);
         $helper = new Htmlify($escapeHtml, $htmlElement, $translatePlugin);
 
-        /* @var PageInterface $page */
+        assert($page instanceof PageInterface);
         self::assertSame($expected, $helper->toHtml('Breadcrumbs', $page));
     }
 
     /**
-     * @throws \PHPUnit\Framework\Exception
-     * @throws \SebastianBergmann\RecursionContext\InvalidArgumentException
-     *
-     * @return void
+     * @throws Exception
+     * @throws InvalidArgumentException
      */
     public function testHtmlifyWithoutTranslator(): void
     {
@@ -179,19 +180,17 @@ final class HtmlifyTest extends TestCase
             ->method('getCustomProperties')
             ->willReturn([]);
 
-        \assert($escapeHtml instanceof EscapeHtml);
-        \assert($htmlElement instanceof HtmlElementInterface);
+        assert($escapeHtml instanceof EscapeHtml);
+        assert($htmlElement instanceof HtmlElementInterface);
         $helper = new Htmlify($escapeHtml, $htmlElement);
 
-        /* @var PageInterface $page */
+        assert($page instanceof PageInterface);
         self::assertSame($expected, $helper->toHtml('Breadcrumbs', $page));
     }
 
     /**
-     * @throws \PHPUnit\Framework\Exception
-     * @throws \SebastianBergmann\RecursionContext\InvalidArgumentException
-     *
-     * @return void
+     * @throws Exception
+     * @throws InvalidArgumentException
      */
     public function testHtmlifyWithoutEscapingLabel(): void
     {
@@ -265,20 +264,18 @@ final class HtmlifyTest extends TestCase
             ->method('getCustomProperties')
             ->willReturn([]);
 
-        \assert($escapeHtml instanceof EscapeHtml);
-        \assert($htmlElement instanceof HtmlElementInterface);
-        \assert($translatePlugin instanceof Translate);
+        assert($escapeHtml instanceof EscapeHtml);
+        assert($htmlElement instanceof HtmlElementInterface);
+        assert($translatePlugin instanceof Translate);
         $helper = new Htmlify($escapeHtml, $htmlElement, $translatePlugin);
 
-        /* @var PageInterface $page */
+        assert($page instanceof PageInterface);
         self::assertSame($expected, $helper->toHtml('Breadcrumbs', $page, false));
     }
 
     /**
-     * @throws \PHPUnit\Framework\Exception
-     * @throws \SebastianBergmann\RecursionContext\InvalidArgumentException
-     *
-     * @return void
+     * @throws Exception
+     * @throws InvalidArgumentException
      */
     public function testHtmlifyWithoutTranslatorAndEscapingLabel(): void
     {
@@ -340,19 +337,17 @@ final class HtmlifyTest extends TestCase
             ->method('getCustomProperties')
             ->willReturn([]);
 
-        \assert($escapeHtml instanceof EscapeHtml);
-        \assert($htmlElement instanceof HtmlElementInterface);
+        assert($escapeHtml instanceof EscapeHtml);
+        assert($htmlElement instanceof HtmlElementInterface);
         $helper = new Htmlify($escapeHtml, $htmlElement);
 
-        /* @var PageInterface $page */
+        assert($page instanceof PageInterface);
         self::assertSame($expected, $helper->toHtml('Breadcrumbs', $page, false));
     }
 
     /**
-     * @throws \PHPUnit\Framework\Exception
-     * @throws \SebastianBergmann\RecursionContext\InvalidArgumentException
-     *
-     * @return void
+     * @throws Exception
+     * @throws InvalidArgumentException
      */
     public function testHtmlifyWithClassOnListItem(): void
     {
@@ -427,20 +422,18 @@ final class HtmlifyTest extends TestCase
             ->method('getCustomProperties')
             ->willReturn([]);
 
-        \assert($escapeHtml instanceof EscapeHtml);
-        \assert($htmlElement instanceof HtmlElementInterface);
-        \assert($translatePlugin instanceof Translate);
+        assert($escapeHtml instanceof EscapeHtml);
+        assert($htmlElement instanceof HtmlElementInterface);
+        assert($translatePlugin instanceof Translate);
         $helper = new Htmlify($escapeHtml, $htmlElement, $translatePlugin);
 
-        /* @var PageInterface $page */
+        assert($page instanceof PageInterface);
         self::assertSame($expected, $helper->toHtml('Breadcrumbs', $page, true, true));
     }
 
     /**
-     * @throws \PHPUnit\Framework\Exception
-     * @throws \SebastianBergmann\RecursionContext\InvalidArgumentException
-     *
-     * @return void
+     * @throws Exception
+     * @throws InvalidArgumentException
      */
     public function testHtmlifyWithoutTranslatorAndWithClassOnListItem(): void
     {
@@ -503,19 +496,17 @@ final class HtmlifyTest extends TestCase
             ->method('getCustomProperties')
             ->willReturn([]);
 
-        \assert($escapeHtml instanceof EscapeHtml);
-        \assert($htmlElement instanceof HtmlElementInterface);
+        assert($escapeHtml instanceof EscapeHtml);
+        assert($htmlElement instanceof HtmlElementInterface);
         $helper = new Htmlify($escapeHtml, $htmlElement);
 
-        /* @var PageInterface $page */
+        assert($page instanceof PageInterface);
         self::assertSame($expected, $helper->toHtml('Breadcrumbs', $page, true, true));
     }
 
     /**
-     * @throws \PHPUnit\Framework\Exception
-     * @throws \SebastianBergmann\RecursionContext\InvalidArgumentException
-     *
-     * @return void
+     * @throws Exception
+     * @throws InvalidArgumentException
      */
     public function testHtmlifyWithoutHref(): void
     {
@@ -589,20 +580,18 @@ final class HtmlifyTest extends TestCase
             ->method('getCustomProperties')
             ->willReturn([]);
 
-        \assert($escapeHtml instanceof EscapeHtml);
-        \assert($htmlElement instanceof HtmlElementInterface);
-        \assert($translatePlugin instanceof Translate);
+        assert($escapeHtml instanceof EscapeHtml);
+        assert($htmlElement instanceof HtmlElementInterface);
+        assert($translatePlugin instanceof Translate);
         $helper = new Htmlify($escapeHtml, $htmlElement, $translatePlugin);
 
-        /* @var PageInterface $page */
+        assert($page instanceof PageInterface);
         self::assertSame($expected, $helper->toHtml('Breadcrumbs', $page));
     }
 
     /**
-     * @throws \PHPUnit\Framework\Exception
-     * @throws \SebastianBergmann\RecursionContext\InvalidArgumentException
-     *
-     * @return void
+     * @throws Exception
+     * @throws InvalidArgumentException
      */
     public function testHtmlifyWithoutTranslatorAndHref(): void
     {
@@ -664,19 +653,17 @@ final class HtmlifyTest extends TestCase
             ->method('getCustomProperties')
             ->willReturn([]);
 
-        \assert($escapeHtml instanceof EscapeHtml);
-        \assert($htmlElement instanceof HtmlElementInterface);
+        assert($escapeHtml instanceof EscapeHtml);
+        assert($htmlElement instanceof HtmlElementInterface);
         $helper = new Htmlify($escapeHtml, $htmlElement);
 
-        /* @var PageInterface $page */
+        assert($page instanceof PageInterface);
         self::assertSame($expected, $helper->toHtml('Breadcrumbs', $page));
     }
 
     /**
-     * @throws \PHPUnit\Framework\Exception
-     * @throws \SebastianBergmann\RecursionContext\InvalidArgumentException
-     *
-     * @return void
+     * @throws Exception
+     * @throws InvalidArgumentException
      */
     public function testHtmlifyWithArrayOfClasses(): void
     {
@@ -755,20 +742,18 @@ final class HtmlifyTest extends TestCase
             ->method('getCustomProperties')
             ->willReturn(['onClick' => $onclick, 'data-test' => $testData]);
 
-        \assert($escapeHtml instanceof EscapeHtml);
-        \assert($htmlElement instanceof HtmlElementInterface);
-        \assert($translatePlugin instanceof Translate);
+        assert($escapeHtml instanceof EscapeHtml);
+        assert($htmlElement instanceof HtmlElementInterface);
+        assert($translatePlugin instanceof Translate);
         $helper = new Htmlify($escapeHtml, $htmlElement, $translatePlugin);
 
-        /* @var PageInterface $page */
+        assert($page instanceof PageInterface);
         self::assertSame($expected, $helper->toHtml('Breadcrumbs', $page));
     }
 
     /**
-     * @throws \PHPUnit\Framework\Exception
-     * @throws \SebastianBergmann\RecursionContext\InvalidArgumentException
-     *
-     * @return void
+     * @throws Exception
+     * @throws InvalidArgumentException
      */
     public function testHtmlifyWithArrayOfClasses2(): void
     {
@@ -845,20 +830,18 @@ final class HtmlifyTest extends TestCase
             ->method('getCustomProperties')
             ->willReturn(['onClick' => $onclick, 'data-test' => $testData]);
 
-        \assert($escapeHtml instanceof EscapeHtml);
-        \assert($htmlElement instanceof HtmlElementInterface);
-        \assert($translatePlugin instanceof Translate);
+        assert($escapeHtml instanceof EscapeHtml);
+        assert($htmlElement instanceof HtmlElementInterface);
+        assert($translatePlugin instanceof Translate);
         $helper = new Htmlify($escapeHtml, $htmlElement, $translatePlugin);
 
-        /* @var PageInterface $page */
+        assert($page instanceof PageInterface);
         self::assertSame($expected, $helper->toHtml('Breadcrumbs', $page));
     }
 
     /**
-     * @throws \PHPUnit\Framework\Exception
-     * @throws \SebastianBergmann\RecursionContext\InvalidArgumentException
-     *
-     * @return void
+     * @throws Exception
+     * @throws InvalidArgumentException
      */
     public function testHtmlifyWithArrayOfClasses3(): void
     {
@@ -923,19 +906,17 @@ final class HtmlifyTest extends TestCase
             ->method('getCustomProperties')
             ->willReturn(['onClick' => $onclick, 'data-test' => $testData]);
 
-        \assert($escapeHtml instanceof EscapeHtml);
-        \assert($htmlElement instanceof HtmlElementInterface);
+        assert($escapeHtml instanceof EscapeHtml);
+        assert($htmlElement instanceof HtmlElementInterface);
         $helper = new Htmlify($escapeHtml, $htmlElement);
 
-        /* @var PageInterface $page */
+        assert($page instanceof PageInterface);
         self::assertSame($expected, $helper->toHtml('Breadcrumbs', $page));
     }
 
     /**
-     * @throws \PHPUnit\Framework\Exception
-     * @throws \SebastianBergmann\RecursionContext\InvalidArgumentException
-     *
-     * @return void
+     * @throws Exception
+     * @throws InvalidArgumentException
      */
     public function testHtmlifyWithArrayOfClassesAndAttributes(): void
     {
@@ -1001,11 +982,11 @@ final class HtmlifyTest extends TestCase
             ->method('getCustomProperties')
             ->willReturn(['onClick' => $onclick, 'data-test' => $testData]);
 
-        \assert($escapeHtml instanceof EscapeHtml);
-        \assert($htmlElement instanceof HtmlElementInterface);
+        assert($escapeHtml instanceof EscapeHtml);
+        assert($htmlElement instanceof HtmlElementInterface);
         $helper = new Htmlify($escapeHtml, $htmlElement);
 
-        /* @var PageInterface $page */
+        assert($page instanceof PageInterface);
         self::assertSame($expected, $helper->toHtml('Breadcrumbs', $page, true, false, $attributes));
     }
 }

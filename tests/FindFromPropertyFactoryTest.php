@@ -9,6 +9,7 @@
  */
 
 declare(strict_types = 1);
+
 namespace MezzioTest\Navigation\Helper;
 
 use Interop\Container\ContainerInterface;
@@ -19,26 +20,24 @@ use Mezzio\Navigation\Helper\ConvertToPagesInterface;
 use Mezzio\Navigation\Helper\FindFromProperty;
 use Mezzio\Navigation\Helper\FindFromPropertyFactory;
 use Mezzio\Navigation\Helper\PluginManager as HelperPluginManager;
+use PHPUnit\Framework\Exception;
 use PHPUnit\Framework\TestCase;
+use SebastianBergmann\RecursionContext\InvalidArgumentException;
+
+use function assert;
 
 final class FindFromPropertyFactoryTest extends TestCase
 {
-    /** @var FindFromPropertyFactory */
-    private $factory;
+    private FindFromPropertyFactory $factory;
 
-    /**
-     * @return void
-     */
     protected function setUp(): void
     {
         $this->factory = new FindFromPropertyFactory();
     }
 
     /**
-     * @throws \PHPUnit\Framework\Exception
-     * @throws \SebastianBergmann\RecursionContext\InvalidArgumentException
-     *
-     * @return void
+     * @throws Exception
+     * @throws InvalidArgumentException
      */
     public function testInvocationWithoutOptions(): void
     {
@@ -77,17 +76,15 @@ final class FindFromPropertyFactoryTest extends TestCase
             ->with(HelperPluginManager::class)
             ->willReturn($helperPluginManager);
 
-        \assert($container instanceof ContainerInterface);
+        assert($container instanceof ContainerInterface);
         $helper = ($this->factory)($container, '');
 
         self::assertInstanceOf(FindFromProperty::class, $helper);
     }
 
     /**
-     * @throws \PHPUnit\Framework\Exception
-     * @throws \SebastianBergmann\RecursionContext\InvalidArgumentException
-     *
-     * @return void
+     * @throws Exception
+     * @throws InvalidArgumentException
      */
     public function testInvocationWithOptions(): void
     {
@@ -130,7 +127,7 @@ final class FindFromPropertyFactoryTest extends TestCase
             ->with(HelperPluginManager::class)
             ->willReturn($helperPluginManager);
 
-        \assert($container instanceof ContainerInterface);
+        assert($container instanceof ContainerInterface);
         $helper = ($this->factory)(
             $container,
             '',

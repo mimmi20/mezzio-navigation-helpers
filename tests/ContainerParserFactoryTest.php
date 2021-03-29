@@ -9,31 +9,30 @@
  */
 
 declare(strict_types = 1);
+
 namespace MezzioTest\Navigation\Helper;
 
 use Interop\Container\ContainerInterface;
 use Mezzio\Navigation\Helper\ContainerParser;
 use Mezzio\Navigation\Helper\ContainerParserFactory;
+use PHPUnit\Framework\Exception;
 use PHPUnit\Framework\TestCase;
+use SebastianBergmann\RecursionContext\InvalidArgumentException;
+
+use function assert;
 
 final class ContainerParserFactoryTest extends TestCase
 {
-    /** @var ContainerParserFactory */
-    private $factory;
+    private ContainerParserFactory $factory;
 
-    /**
-     * @return void
-     */
     protected function setUp(): void
     {
         $this->factory = new ContainerParserFactory();
     }
 
     /**
-     * @throws \PHPUnit\Framework\Exception
-     * @throws \SebastianBergmann\RecursionContext\InvalidArgumentException
-     *
-     * @return void
+     * @throws Exception
+     * @throws InvalidArgumentException
      */
     public function testInvocation(): void
     {
@@ -43,7 +42,7 @@ final class ContainerParserFactoryTest extends TestCase
         $container->expects(self::never())
             ->method('get');
 
-        \assert($container instanceof ContainerInterface);
+        assert($container instanceof ContainerInterface);
         $helper = ($this->factory)($container);
 
         self::assertInstanceOf(ContainerParser::class, $helper);

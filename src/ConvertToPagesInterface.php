@@ -9,6 +9,7 @@
  */
 
 declare(strict_types = 1);
+
 namespace Mezzio\Navigation\Helper;
 
 use Mezzio\Navigation\ContainerInterface;
@@ -20,10 +21,10 @@ interface ConvertToPagesInterface extends HelperInterface
     /**
      * Converts a $mixed value to an array of pages
      *
-     * @param ContainerInterface|PageInterface|string|Traversable $mixed     mixed value to get page(s) from
-     * @param bool                                                $recursive whether $value should be looped if it is an array or a config
+     * @param array<string, array<mixed>|string>|ContainerInterface|PageInterface|string|Traversable<string, array<mixed>|string> $mixed     mixed value to get page(s) from
+     * @param bool                                                                                                                $recursive whether $value should be looped if it is an array or a config
      *
-     * @return PageInterface[]
+     * @return array<PageInterface>
      */
     public function convert($mixed, bool $recursive = true): array;
 }

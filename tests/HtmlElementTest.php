@@ -9,20 +9,21 @@
  */
 
 declare(strict_types = 1);
+
 namespace MezzioTest\Navigation\Helper;
 
 use Laminas\View\Helper\EscapeHtml;
 use Laminas\View\Helper\EscapeHtmlAttr;
 use Mezzio\Navigation\Helper\HtmlElement;
+use PHPUnit\Framework\Exception;
 use PHPUnit\Framework\TestCase;
+use SebastianBergmann\RecursionContext\InvalidArgumentException;
 
 final class HtmlElementTest extends TestCase
 {
     /**
-     * @throws \PHPUnit\Framework\Exception
-     * @throws \SebastianBergmann\RecursionContext\InvalidArgumentException
-     *
-     * @return void
+     * @throws Exception
+     * @throws InvalidArgumentException
      */
     public function testToHtml(): void
     {
@@ -96,10 +97,8 @@ final class HtmlElementTest extends TestCase
     }
 
     /**
-     * @throws \PHPUnit\Framework\Exception
-     * @throws \SebastianBergmann\RecursionContext\InvalidArgumentException
-     *
-     * @return void
+     * @throws Exception
+     * @throws InvalidArgumentException
      */
     public function testToHtmlIgnoringNullAttributes(): void
     {
@@ -173,10 +172,8 @@ final class HtmlElementTest extends TestCase
     }
 
     /**
-     * @throws \PHPUnit\Framework\Exception
-     * @throws \SebastianBergmann\RecursionContext\InvalidArgumentException
-     *
-     * @return void
+     * @throws Exception
+     * @throws InvalidArgumentException
      */
     public function testToHtmlNotIgnoringTrueAttributes(): void
     {

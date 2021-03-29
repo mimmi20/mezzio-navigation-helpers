@@ -9,6 +9,7 @@
  */
 
 declare(strict_types = 1);
+
 namespace Mezzio\Navigation\Helper;
 
 use Interop\Container\ContainerInterface;
@@ -17,10 +18,6 @@ final class ContainerParserFactory
 {
     /**
      * Create and return a navigation view helper instance.
-     *
-     * @param ContainerInterface $container
-     *
-     * @return ContainerParser
      */
     public function __invoke(ContainerInterface $container): ContainerParser
     {

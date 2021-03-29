@@ -9,6 +9,7 @@
  */
 
 declare(strict_types = 1);
+
 namespace Mezzio\Navigation\Helper;
 
 use Interop\Container\ContainerInterface;
@@ -16,14 +17,14 @@ use Laminas\View\Exception;
 use Mezzio\Navigation;
 use Psr\Container\ContainerExceptionInterface;
 
+use function in_array;
+use function is_string;
+use function sprintf;
+
 final class ContainerParser implements ContainerParserInterface
 {
-    /** @var ContainerInterface */
-    private $serviceLocator;
+    private ContainerInterface $serviceLocator;
 
-    /**
-     * @param \Interop\Container\ContainerInterface $serviceLocator
-     */
     public function __construct(ContainerInterface $serviceLocator)
     {
         $this->serviceLocator = $serviceLocator;
@@ -35,8 +36,6 @@ final class ContainerParser implements ContainerParserInterface
      * @param int|Navigation\ContainerInterface|string|null $container
      *
      * @throws Exception\InvalidArgumentException
-     *
-     * @return Navigation\ContainerInterface|null
      */
     public function parseContainer($container = null): ?Navigation\ContainerInterface
     {

@@ -9,6 +9,7 @@
  */
 
 declare(strict_types = 1);
+
 namespace Mezzio\Navigation\Helper;
 
 use Mezzio\Navigation\ContainerInterface;
@@ -22,16 +23,9 @@ final class FindRoot implements FindRootInterface
      * the {@link render()} method.
      *
      * @see find()
-     *
-     * @var ContainerInterface|null
      */
-    private $root;
+    private ?ContainerInterface $root = null;
 
-    /**
-     * @param ContainerInterface|null $root
-     *
-     * @return void
-     */
     public function setRoot(?ContainerInterface $root): void
     {
         $this->root = $root;
@@ -44,10 +38,6 @@ final class FindRoot implements FindRootInterface
      * container as the root container, and unset it when done rendering. This
      * makes sure finder methods will not traverse above the container given
      * to the render method.
-     *
-     * @param PageInterface $page
-     *
-     * @return ContainerInterface
      */
     public function find(PageInterface $page): ContainerInterface
     {

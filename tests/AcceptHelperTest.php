@@ -9,28 +9,31 @@
  */
 
 declare(strict_types = 1);
+
 namespace MezzioTest\Navigation\Helper;
 
 use Mezzio\GenericAuthorization\AuthorizationInterface;
 use Mezzio\Navigation\Helper\AcceptHelper;
 use Mezzio\Navigation\Page\PageInterface;
 use Mezzio\Navigation\Page\Uri;
+use PHPUnit\Framework\Exception;
 use PHPUnit\Framework\TestCase;
+use SebastianBergmann\RecursionContext\InvalidArgumentException;
+
+use function assert;
 
 final class AcceptHelperTest extends TestCase
 {
     /**
-     * @throws \PHPUnit\Framework\Exception
-     * @throws \SebastianBergmann\RecursionContext\InvalidArgumentException
-     *
-     * @return void
+     * @throws Exception
+     * @throws InvalidArgumentException
      */
     public function testDoNotAcceptInvisiblePages(): void
     {
         $role = 'testRole';
         $auth = $this->createMock(AuthorizationInterface::class);
 
-        \assert($auth instanceof AuthorizationInterface);
+        assert($auth instanceof AuthorizationInterface);
         $helper = new AcceptHelper($auth, false, $role);
 
         $page = $this->getMockBuilder(PageInterface::class)
@@ -45,15 +48,13 @@ final class AcceptHelperTest extends TestCase
         $page->expects(self::never())
             ->method('getPrivilege');
 
-        /* @var PageInterface $page */
+        assert($page instanceof PageInterface);
         self::assertFalse($helper->accept($page));
     }
 
     /**
-     * @throws \PHPUnit\Framework\Exception
-     * @throws \SebastianBergmann\RecursionContext\InvalidArgumentException
-     *
-     * @return void
+     * @throws Exception
+     * @throws InvalidArgumentException
      */
     public function testDoNotAcceptByAuthorization(): void
     {
@@ -69,7 +70,7 @@ final class AcceptHelperTest extends TestCase
             ->with($role, $resource, $privilege)
             ->willReturn(false);
 
-        \assert($auth instanceof AuthorizationInterface);
+        assert($auth instanceof AuthorizationInterface);
         $helper = new AcceptHelper($auth, false, $role);
 
         $page = $this->getMockBuilder(PageInterface::class)
@@ -86,15 +87,13 @@ final class AcceptHelperTest extends TestCase
             ->method('getPrivilege')
             ->willReturn($privilege);
 
-        /* @var PageInterface $page */
+        assert($page instanceof PageInterface);
         self::assertFalse($helper->accept($page));
     }
 
     /**
-     * @throws \PHPUnit\Framework\Exception
-     * @throws \SebastianBergmann\RecursionContext\InvalidArgumentException
-     *
-     * @return void
+     * @throws Exception
+     * @throws InvalidArgumentException
      */
     public function testDoNotAcceptByAuthorizationWithParent(): void
     {
@@ -110,7 +109,7 @@ final class AcceptHelperTest extends TestCase
             ->with($role, $resource, $privilege)
             ->willReturn(true);
 
-        \assert($auth instanceof AuthorizationInterface);
+        assert($auth instanceof AuthorizationInterface);
         $helper = new AcceptHelper($auth, false, $role);
 
         $parentPage = $this->getMockBuilder(PageInterface::class)
@@ -138,16 +137,14 @@ final class AcceptHelperTest extends TestCase
             ->method('getParent')
             ->willReturn($parentPage);
 
-        /* @var PageInterface $page */
+        assert($page instanceof PageInterface);
         self::assertFalse($helper->accept($page));
     }
 
     /**
-     * @throws \PHPUnit\Framework\Exception
-     * @throws \SebastianBergmann\RecursionContext\InvalidArgumentException
+     * @throws Exception
+     * @throws InvalidArgumentException
      * @throws \Mezzio\Navigation\Exception\InvalidArgumentException
-     *
-     * @return void
      */
     public function testDoNotAcceptInvisibleParent(): void
     {
@@ -169,10 +166,10 @@ final class AcceptHelperTest extends TestCase
         $auth->expects(self::never())
             ->method('isGranted');
 
-        \assert($auth instanceof AuthorizationInterface);
+        assert($auth instanceof AuthorizationInterface);
         $helper = new AcceptHelper($auth, false, $role);
 
-        /* @var PageInterface $page */
+        assert($page instanceof PageInterface);
         self::assertFalse($helper->accept($page));
     }
 }

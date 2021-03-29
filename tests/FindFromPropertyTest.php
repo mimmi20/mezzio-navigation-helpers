@@ -9,6 +9,7 @@
  */
 
 declare(strict_types = 1);
+
 namespace MezzioTest\Navigation\Helper;
 
 use Laminas\View\Exception\DomainException;
@@ -16,15 +17,17 @@ use Mezzio\Navigation\Helper\AcceptHelperInterface;
 use Mezzio\Navigation\Helper\ConvertToPagesInterface;
 use Mezzio\Navigation\Helper\FindFromProperty;
 use Mezzio\Navigation\Page\PageInterface;
+use PHPUnit\Framework\Exception;
 use PHPUnit\Framework\TestCase;
+use SebastianBergmann\RecursionContext\InvalidArgumentException;
+
+use function sprintf;
 
 final class FindFromPropertyTest extends TestCase
 {
     /**
-     * @throws \PHPUnit\Framework\Exception
-     * @throws \Laminas\View\Exception\DomainException
-     *
-     * @return void
+     * @throws Exception
+     * @throws DomainException
      */
     public function testFindWrongRelation(): void
     {
@@ -75,11 +78,9 @@ final class FindFromPropertyTest extends TestCase
     }
 
     /**
-     * @throws \PHPUnit\Framework\Exception
-     * @throws \SebastianBergmann\RecursionContext\InvalidArgumentException
-     * @throws \Laminas\View\Exception\DomainException
-     *
-     * @return void
+     * @throws Exception
+     * @throws InvalidArgumentException
+     * @throws DomainException
      */
     public function testFindNoRelation(): void
     {
@@ -124,11 +125,9 @@ final class FindFromPropertyTest extends TestCase
     }
 
     /**
-     * @throws \PHPUnit\Framework\Exception
-     * @throws \SebastianBergmann\RecursionContext\InvalidArgumentException
-     * @throws \Laminas\View\Exception\DomainException
-     *
-     * @return void
+     * @throws Exception
+     * @throws InvalidArgumentException
+     * @throws DomainException
      */
     public function testFindNoConvertedRelation(): void
     {
@@ -181,11 +180,9 @@ final class FindFromPropertyTest extends TestCase
     }
 
     /**
-     * @throws \PHPUnit\Framework\Exception
-     * @throws \SebastianBergmann\RecursionContext\InvalidArgumentException
-     * @throws \Laminas\View\Exception\DomainException
-     *
-     * @return void
+     * @throws Exception
+     * @throws InvalidArgumentException
+     * @throws DomainException
      */
     public function testFindWithConvertedRelation(): void
     {

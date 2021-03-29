@@ -9,6 +9,7 @@
  */
 
 declare(strict_types = 1);
+
 namespace Mezzio\Navigation\Helper;
 
 interface HtmlElementInterface extends HelperInterface
@@ -16,10 +17,7 @@ interface HtmlElementInterface extends HelperInterface
     /**
      * Returns an HTML string
      *
-     * @param string $element
-     * @param array  $attribs
-     * @param string $content
-     * @param string $prefix
+     * @param array<string, array<string>|bool|string> $attribs
      *
      * @return string HTML string (<a href="…">Label</a>)
      */

@@ -9,6 +9,7 @@
  */
 
 declare(strict_types = 1);
+
 namespace Mezzio\Navigation\Helper;
 
 use Mezzio\Navigation\Page\PageInterface;
@@ -18,7 +19,6 @@ interface HtmlifyInterface extends HelperInterface
     /**
      * Returns an HTML string containing an 'a' element for the given page
      *
-     * @param string        $prefix
      * @param PageInterface $page               page to generate HTML for
      * @param bool          $escapeLabel        Whether or not to escape the label
      * @param bool          $addClassToListItem Whether or not to add the page class to the list item

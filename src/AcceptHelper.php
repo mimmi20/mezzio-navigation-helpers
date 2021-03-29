@@ -9,6 +9,7 @@
  */
 
 declare(strict_types = 1);
+
 namespace Mezzio\Navigation\Helper;
 
 use Mezzio\GenericAuthorization\AuthorizationInterface;
@@ -18,30 +19,19 @@ final class AcceptHelper implements AcceptHelperInterface
 {
     /**
      * Authorization to use when iterating pages
-     *
-     * @var \Mezzio\GenericAuthorization\AuthorizationInterface|null
      */
-    private $authorization;
+    private ?AuthorizationInterface $authorization = null;
 
     /**
      * Whether invisible items should be rendered by this helper
-     *
-     * @var bool
      */
-    private $renderInvisible = false;
+    private bool $renderInvisible = false;
 
     /**
      * Authorization role to use when iterating pages
-     *
-     * @var string|null
      */
-    private $role;
+    private ?string $role = null;
 
-    /**
-     * @param AuthorizationInterface|null $authorization
-     * @param bool                        $renderInvisible
-     * @param string|null                 $role
-     */
     public function __construct(
         ?AuthorizationInterface $authorization,
         bool $renderInvisible,
@@ -96,25 +86,16 @@ final class AcceptHelper implements AcceptHelperInterface
         return $accept;
     }
 
-    /**
-     * @return AuthorizationInterface|null
-     */
     public function getAuthorization(): ?AuthorizationInterface
     {
         return $this->authorization;
     }
 
-    /**
-     * @return bool
-     */
     public function getRenderInvisible(): bool
     {
         return $this->renderInvisible;
     }
 
-    /**
-     * @return string|null
-     */
     public function getRole(): ?string
     {
         return $this->role;

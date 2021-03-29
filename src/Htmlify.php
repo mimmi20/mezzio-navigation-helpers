@@ -9,28 +9,25 @@
  */
 
 declare(strict_types = 1);
+
 namespace Mezzio\Navigation\Helper;
 
 use Laminas\I18n\View\Helper\Translate;
 use Laminas\View\Helper\EscapeHtml;
 use Mezzio\Navigation\Page\PageInterface;
 
+use function array_diff_key;
+use function array_flip;
+use function array_merge;
+
 final class Htmlify implements HtmlifyInterface
 {
-    /** @var Translate|null */
-    private $translator;
+    private ?Translate $translator = null;
 
-    /** @var EscapeHtml */
-    private $escaper;
+    private EscapeHtml $escaper;
 
-    /** @var \Mezzio\Navigation\Helper\HtmlElementInterface */
-    private $htmlElement;
+    private HtmlElementInterface $htmlElement;
 
-    /**
-     * @param \Laminas\View\Helper\EscapeHtml                $escaper
-     * @param \Mezzio\Navigation\Helper\HtmlElementInterface $htmlElement
-     * @param \Laminas\I18n\View\Helper\Translate|null       $translator
-     */
     public function __construct(EscapeHtml $escaper, HtmlElementInterface $htmlElement, ?Translate $translator = null)
     {
         $this->escaper     = $escaper;
@@ -41,7 +38,6 @@ final class Htmlify implements HtmlifyInterface
     /**
      * Returns an HTML string containing an 'a' element for the given page
      *
-     * @param string        $prefix
      * @param PageInterface $page               page to generate HTML for
      * @param bool          $escapeLabel        Whether or not to escape the label
      * @param bool          $addClassToListItem Whether or not to add the page class to the list item

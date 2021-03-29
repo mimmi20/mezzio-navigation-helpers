@@ -9,6 +9,7 @@
  */
 
 declare(strict_types = 1);
+
 namespace Mezzio\Navigation\Helper;
 
 use Laminas\View\Exception;
@@ -22,8 +23,6 @@ interface ContainerParserInterface extends HelperInterface
      * @param int|Navigation\ContainerInterface|string|null $container
      *
      * @throws Exception\InvalidArgumentException
-     *
-     * @return Navigation\ContainerInterface|null
      */
     public function parseContainer($container = null): ?Navigation\ContainerInterface;
 }

@@ -9,6 +9,7 @@
  */
 
 declare(strict_types = 1);
+
 namespace Mezzio\Navigation\Helper;
 
 use Interop\Container\ContainerInterface as InteropContainerInterface;
@@ -24,13 +25,18 @@ use Laminas\ServiceManager\Factory\InvokableFactory;
  */
 final class PluginManager extends AbstractPluginManager implements InteropContainerInterface
 {
-    /** @var string Valid instance types. */
+    /**
+     * @var string
+     *             Valid instance types
+     * @phpcsSuppress SlevomatCodingStandard.TypeHints.PropertyTypeHint.MissingNativeTypeHint
+     */
     protected $instanceOf = HelperInterface::class;
 
     /**
      * Default factories
      *
-     * @var string[]
+     * @var array<string, string>
+     * @phpcsSuppress SlevomatCodingStandard.TypeHints.PropertyTypeHint.MissingNativeTypeHint
      */
     protected $factories = [
         AcceptHelperInterface::class => AcceptHelperFactory::class,
@@ -43,6 +49,10 @@ final class PluginManager extends AbstractPluginManager implements InteropContai
         HtmlElementInterface::class => HtmlElementFactory::class,
     ];
 
+    /**
+     * @var array<string, string>
+     * @phpcsSuppress SlevomatCodingStandard.TypeHints.PropertyTypeHint.MissingNativeTypeHint
+     */
     protected $aliases = [
         FindRootInterface::class => FindRoot::class,
     ];

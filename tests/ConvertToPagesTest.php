@@ -9,6 +9,7 @@
  */
 
 declare(strict_types = 1);
+
 namespace MezzioTest\Navigation\Helper;
 
 use Laminas\Config\Config;
@@ -19,15 +20,14 @@ use Mezzio\Navigation\Navigation;
 use Mezzio\Navigation\Page\PageFactoryInterface;
 use Mezzio\Navigation\Page\PageInterface;
 use Mezzio\Navigation\Page\Uri;
+use PHPUnit\Framework\Exception;
 use PHPUnit\Framework\TestCase;
 
 final class ConvertToPagesTest extends TestCase
 {
     /**
-     * @throws \PHPUnit\Framework\Exception
+     * @throws Exception
      * @throws \SebastianBergmann\RecursionContext\InvalidArgumentException
-     *
-     * @return void
      */
     public function testConvertFromPage(): void
     {
@@ -67,11 +67,9 @@ final class ConvertToPagesTest extends TestCase
     }
 
     /**
-     * @throws \PHPUnit\Framework\Exception
+     * @throws Exception
      * @throws \SebastianBergmann\RecursionContext\InvalidArgumentException
-     * @throws \Mezzio\Navigation\Exception\InvalidArgumentException
-     *
-     * @return void
+     * @throws InvalidArgumentException
      */
     public function testConvertFromContainer(): void
     {
@@ -116,10 +114,8 @@ final class ConvertToPagesTest extends TestCase
     }
 
     /**
-     * @throws \PHPUnit\Framework\Exception
+     * @throws Exception
      * @throws \SebastianBergmann\RecursionContext\InvalidArgumentException
-     *
-     * @return void
      */
     public function testConvertFromString(): void
     {
@@ -167,10 +163,8 @@ final class ConvertToPagesTest extends TestCase
     }
 
     /**
-     * @throws \PHPUnit\Framework\Exception
+     * @throws Exception
      * @throws \SebastianBergmann\RecursionContext\InvalidArgumentException
-     *
-     * @return void
      */
     public function testConvertFromStringWithException(): void
     {
@@ -220,10 +214,8 @@ final class ConvertToPagesTest extends TestCase
     }
 
     /**
-     * @throws \PHPUnit\Framework\Exception
+     * @throws Exception
      * @throws \SebastianBergmann\RecursionContext\InvalidArgumentException
-     *
-     * @return void
      */
     public function testConvertFromConfig(): void
     {
@@ -254,7 +246,7 @@ final class ConvertToPagesTest extends TestCase
             'type' => 'uri',
             'uri' => $uri,
         ];
-        $config = new Config($configArray);
+        $config      = new Config($configArray);
 
         $pageFactory = $this->getMockBuilder(PageFactoryInterface::class)
             ->disableOriginalConstructor()
@@ -272,10 +264,8 @@ final class ConvertToPagesTest extends TestCase
     }
 
     /**
-     * @throws \PHPUnit\Framework\Exception
+     * @throws Exception
      * @throws \SebastianBergmann\RecursionContext\InvalidArgumentException
-     *
-     * @return void
      */
     public function testConvertFromConfigWithException(): void
     {
@@ -308,7 +298,7 @@ final class ConvertToPagesTest extends TestCase
             'type' => 'uri',
             'uri' => $uri,
         ];
-        $config = new Config($configArray);
+        $config      = new Config($configArray);
 
         $pageFactory = $this->getMockBuilder(PageFactoryInterface::class)
             ->disableOriginalConstructor()
@@ -326,10 +316,8 @@ final class ConvertToPagesTest extends TestCase
     }
 
     /**
-     * @throws \PHPUnit\Framework\Exception
+     * @throws Exception
      * @throws \SebastianBergmann\RecursionContext\InvalidArgumentException
-     *
-     * @return void
      */
     public function testConvertFromInteger(): void
     {
@@ -367,10 +355,8 @@ final class ConvertToPagesTest extends TestCase
     }
 
     /**
-     * @throws \PHPUnit\Framework\Exception
+     * @throws Exception
      * @throws \SebastianBergmann\RecursionContext\InvalidArgumentException
-     *
-     * @return void
      */
     public function testConvertFromArray(): void
     {
@@ -418,10 +404,8 @@ final class ConvertToPagesTest extends TestCase
     }
 
     /**
-     * @throws \PHPUnit\Framework\Exception
+     * @throws Exception
      * @throws \SebastianBergmann\RecursionContext\InvalidArgumentException
-     *
-     * @return void
      */
     public function testConvertFromArrayWithException(): void
     {
@@ -471,10 +455,8 @@ final class ConvertToPagesTest extends TestCase
     }
 
     /**
-     * @throws \PHPUnit\Framework\Exception
+     * @throws Exception
      * @throws \SebastianBergmann\RecursionContext\InvalidArgumentException
-     *
-     * @return void
      *
      * @group Convert
      */

@@ -9,8 +9,10 @@
  */
 
 declare(strict_types = 1);
+
 namespace Mezzio\Navigation\Helper;
 
+use Laminas\View\Exception\DomainException;
 use Mezzio\Navigation\Page\PageInterface;
 
 interface FindFromPropertyInterface extends HelperInterface
@@ -23,9 +25,9 @@ interface FindFromPropertyInterface extends HelperInterface
      * @param string        $rel  relation, 'rel' or 'rev'
      * @param string        $type link type, e.g. 'start', 'next'
      *
-     * @throws \Laminas\View\Exception\DomainException
+     * @return array<PageInterface>
      *
-     * @return PageInterface[]
+     * @throws DomainException
      */
     public function find(PageInterface $page, string $rel, string $type): array;
 }

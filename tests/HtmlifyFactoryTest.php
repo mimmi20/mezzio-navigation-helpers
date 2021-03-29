@@ -9,6 +9,7 @@
  */
 
 declare(strict_types = 1);
+
 namespace MezzioTest\Navigation\Helper;
 
 use Interop\Container\ContainerInterface;
@@ -20,26 +21,24 @@ use Mezzio\Navigation\Helper\HtmlElementInterface;
 use Mezzio\Navigation\Helper\Htmlify;
 use Mezzio\Navigation\Helper\HtmlifyFactory;
 use Mezzio\Navigation\Helper\PluginManager;
+use PHPUnit\Framework\Exception;
 use PHPUnit\Framework\TestCase;
+use SebastianBergmann\RecursionContext\InvalidArgumentException;
+
+use function assert;
 
 final class HtmlifyFactoryTest extends TestCase
 {
-    /** @var HtmlifyFactory */
-    private $factory;
+    private HtmlifyFactory $factory;
 
-    /**
-     * @return void
-     */
     protected function setUp(): void
     {
         $this->factory = new HtmlifyFactory();
     }
 
     /**
-     * @throws \PHPUnit\Framework\Exception
-     * @throws \SebastianBergmann\RecursionContext\InvalidArgumentException
-     *
-     * @return void
+     * @throws Exception
+     * @throws InvalidArgumentException
      */
     public function testInvocationWithoutTranslator(): void
     {
@@ -74,17 +73,15 @@ final class HtmlifyFactoryTest extends TestCase
             ->withConsecutive([PluginManager::class], [HelperPluginManager::class])
             ->willReturnOnConsecutiveCalls($pluginManager, $helperPluginManager);
 
-        \assert($container instanceof ContainerInterface);
+        assert($container instanceof ContainerInterface);
         $helper = ($this->factory)($container);
 
         self::assertInstanceOf(Htmlify::class, $helper);
     }
 
     /**
-     * @throws \PHPUnit\Framework\Exception
-     * @throws \SebastianBergmann\RecursionContext\InvalidArgumentException
-     *
-     * @return void
+     * @throws Exception
+     * @throws InvalidArgumentException
      */
     public function testInvocationWithTranslator(): void
     {
@@ -120,7 +117,7 @@ final class HtmlifyFactoryTest extends TestCase
             ->withConsecutive([PluginManager::class], [HelperPluginManager::class])
             ->willReturnOnConsecutiveCalls($pluginManager, $helperPluginManager);
 
-        \assert($container instanceof ContainerInterface);
+        assert($container instanceof ContainerInterface);
         $helper = ($this->factory)($container);
 
         self::assertInstanceOf(Htmlify::class, $helper);

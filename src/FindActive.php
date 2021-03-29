@@ -9,22 +9,24 @@
  */
 
 declare(strict_types = 1);
+
 namespace Mezzio\Navigation\Helper;
 
 use Mezzio\Navigation\ContainerInterface;
 use Mezzio\Navigation\Page\PageInterface;
 use RecursiveIteratorIterator;
 
+use function assert;
+use function get_class;
+use function is_int;
+use function sprintf;
+
 final class FindActive implements FindActiveInterface
 {
     private const START_DEPTH = -1;
 
-    /** @var AcceptHelperInterface */
-    private $acceptHelper;
+    private AcceptHelperInterface $acceptHelper;
 
-    /**
-     * @param AcceptHelperInterface $acceptHelper
-     */
     public function __construct(AcceptHelperInterface $acceptHelper)
     {
         $this->acceptHelper = $acceptHelper;
@@ -47,8 +49,8 @@ final class FindActive implements FindActiveInterface
      *                                      null value means no maximum
      *                                      depth required.
      *
-     * @return array an associative array with the values 'depth' and 'page',
-     *               or an empty array if not found
+     * @return array<string, int|PageInterface|null> an associative array with the values 'depth' and 'page',
+     *                       or an empty array if not found
      */
     public function find(ContainerInterface $container, ?int $minDepth, ?int $maxDepth): array
     {
@@ -60,7 +62,7 @@ final class FindActive implements FindActiveInterface
         );
 
         foreach ($iterator as $page) {
-            \assert(
+            assert(
                 $page instanceof PageInterface,
                 sprintf(
                     '$page should be an Instance of %s, but was %s',
@@ -86,10 +88,10 @@ final class FindActive implements FindActiveInterface
         }
 
         if (is_int($maxDepth) && $foundDepth > $maxDepth && $found instanceof PageInterface) {
-            \assert($foundDepth > $maxDepth);
+            assert($foundDepth > $maxDepth);
 
             while ($foundDepth > $maxDepth) {
-                \assert($foundDepth >= $minDepth);
+                assert($foundDepth >= $minDepth);
 
                 if (--$foundDepth < $minDepth) {
                     $found = null;

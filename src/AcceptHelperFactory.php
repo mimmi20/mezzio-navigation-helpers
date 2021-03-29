@@ -9,22 +9,27 @@
  */
 
 declare(strict_types = 1);
+
 namespace Mezzio\Navigation\Helper;
 
 use Interop\Container\ContainerInterface;
 use Laminas\ServiceManager\Factory\FactoryInterface;
 use Mezzio\GenericAuthorization\AuthorizationInterface;
 
+use function array_key_exists;
+use function is_array;
+use function is_string;
+
 final class AcceptHelperFactory implements FactoryInterface
 {
     /**
      * Create and return a navigation view helper instance.
      *
-     * @param ContainerInterface $container
-     * @param string             $requestedName
-     * @param array|null         $options
+     * @param string            $requestedName
+     * @param array<mixed>|null $options
      *
-     * @return AcceptHelper
+     * @phpcsSuppress SlevomatCodingStandard.TypeHints.ParameterTypeHint.MissingNativeTypeHint
+     * @phpcsSuppress SlevomatCodingStandard.Functions.UnusedParameter.UnusedParameter
      */
     public function __invoke(ContainerInterface $container, $requestedName, ?array $options = null): AcceptHelper
     {
