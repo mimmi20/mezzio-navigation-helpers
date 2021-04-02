@@ -16,9 +16,7 @@ use Laminas\View\Exception\DomainException;
 use Mezzio\Navigation\Page\PageInterface;
 
 use function array_filter;
-use function in_array;
 use function sprintf;
-use function ucfirst;
 
 final class FindFromProperty implements FindFromPropertyInterface
 {
@@ -46,17 +44,21 @@ final class FindFromProperty implements FindFromPropertyInterface
      */
     public function find(PageInterface $page, string $rel, string $type): array
     {
-        if (!in_array($rel, ['rel', 'rev'], true)) {
-            throw new DomainException(
-                sprintf(
-                    'Invalid relation attribute "%s", must be "rel" or "rev"',
-                    $rel
-                )
-            );
+        switch ($rel) {
+            case 'rel':
+                $result = $page->getRel($type);
+                break;
+            case 'rev':
+                $result = $page->getRev($type);
+                break;
+            default:
+                throw new DomainException(
+                    sprintf(
+                        'Invalid relation attribute "%s", must be "rel" or "rev"',
+                        $rel
+                    )
+                );
         }
-
-        $method = 'get' . ucfirst($rel);
-        $result = $page->{$method}($type);
 
         if (!$result) {
             return [];
