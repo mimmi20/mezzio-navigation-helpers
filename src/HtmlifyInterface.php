@@ -17,20 +17,23 @@ use Mezzio\Navigation\Page\PageInterface;
 interface HtmlifyInterface extends HelperInterface
 {
     /**
-     * Returns an HTML string containing an 'a' element for the given page
+     * Returns an HTML string for the given page
      *
-     * @param PageInterface $page               page to generate HTML for
-     * @param bool          $escapeLabel        Whether or not to escape the label
-     * @param bool          $addClassToListItem Whether or not to add the page class to the list item
-     * @param string[]      $attributes
+     * @param string                $prefix             prefix to normalize the id attribute
+     * @param PageInterface         $page               page to generate HTML for
+     * @param bool                  $escapeLabel        Whether or not to escape the label
+     * @param bool                  $addClassToListItem Whether or not to add the page class to the list item
+     * @param array<string, string> $attributes
+     * @param bool                  $convertToButton    Whether or not to convert a link to a button
      *
-     * @return string HTML string (<a href="…">Label</a>)
+     * @return string HTML string
      */
     public function toHtml(
         string $prefix,
         PageInterface $page,
         bool $escapeLabel = true,
         bool $addClassToListItem = false,
-        array $attributes = []
+        array $attributes = [],
+        bool $convertToButton = false
     ): string;
 }
