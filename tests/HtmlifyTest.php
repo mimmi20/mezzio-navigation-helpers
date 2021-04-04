@@ -94,7 +94,7 @@ final class HtmlifyTest extends TestCase
         $page->expects(self::once())
             ->method('getClass')
             ->willReturn($class);
-        $page->expects(self::once())
+        $page->expects(self::exactly(2))
             ->method('getHref')
             ->willReturn($href);
         $page->expects(self::once())
@@ -170,7 +170,7 @@ final class HtmlifyTest extends TestCase
         $page->expects(self::once())
             ->method('getClass')
             ->willReturn($class);
-        $page->expects(self::once())
+        $page->expects(self::exactly(2))
             ->method('getHref')
             ->willReturn($href);
         $page->expects(self::once())
@@ -254,7 +254,7 @@ final class HtmlifyTest extends TestCase
         $page->expects(self::once())
             ->method('getClass')
             ->willReturn($class);
-        $page->expects(self::once())
+        $page->expects(self::exactly(2))
             ->method('getHref')
             ->willReturn($href);
         $page->expects(self::once())
@@ -327,7 +327,7 @@ final class HtmlifyTest extends TestCase
         $page->expects(self::once())
             ->method('getClass')
             ->willReturn($class);
-        $page->expects(self::once())
+        $page->expects(self::exactly(2))
             ->method('getHref')
             ->willReturn($href);
         $page->expects(self::once())
@@ -412,7 +412,7 @@ final class HtmlifyTest extends TestCase
             ->willReturn($id);
         $page->expects(self::never())
             ->method('getClass');
-        $page->expects(self::once())
+        $page->expects(self::exactly(2))
             ->method('getHref')
             ->willReturn($href);
         $page->expects(self::once())
@@ -486,7 +486,7 @@ final class HtmlifyTest extends TestCase
             ->willReturn($id);
         $page->expects(self::never())
             ->method('getClass');
-        $page->expects(self::once())
+        $page->expects(self::exactly(2))
             ->method('getHref')
             ->willReturn($href);
         $page->expects(self::once())
@@ -732,7 +732,7 @@ final class HtmlifyTest extends TestCase
         $page->expects(self::once())
             ->method('getClass')
             ->willReturn($class);
-        $page->expects(self::once())
+        $page->expects(self::exactly(2))
             ->method('getHref')
             ->willReturn($href);
         $page->expects(self::once())
@@ -761,7 +761,6 @@ final class HtmlifyTest extends TestCase
 
         $translatedLabel        = 'testLabelTranslated';
         $escapedTranslatedLabel = 'testLabelTranslatedAndEscaped';
-        $tranalatedTitle        = 'testTitleTranslated';
         $textDomain             = 'testDomain';
         $id                     = 'testId';
         $class                  = 'test-class';
@@ -773,10 +772,10 @@ final class HtmlifyTest extends TestCase
         $translatePlugin = $this->getMockBuilder(Translate::class)
             ->disableOriginalConstructor()
             ->getMock();
-        $translatePlugin->expects(self::exactly(2))
+        $translatePlugin->expects(self::once())
             ->method('__invoke')
-            ->withConsecutive(['', $textDomain], ['', $textDomain])
-            ->willReturnOnConsecutiveCalls($translatedLabel, $tranalatedTitle);
+            ->with('', $textDomain)
+            ->willReturn($translatedLabel);
 
         $escapeHtml = $this->getMockBuilder(EscapeHtml::class)
             ->disableOriginalConstructor()
@@ -791,7 +790,7 @@ final class HtmlifyTest extends TestCase
             ->getMock();
         $htmlElement->expects(self::once())
             ->method('toHtml')
-            ->with('a', ['id' => $id, 'title' => $tranalatedTitle, 'class' => $class, 'href' => $href, 'target' => $target, 'onClick' => $onclick, 'data-test' => $testData], $escapedTranslatedLabel, 'Breadcrumbs')
+            ->with('a', ['id' => $id, 'title' => null, 'class' => $class, 'href' => $href, 'target' => $target, 'onClick' => $onclick, 'data-test' => $testData], $escapedTranslatedLabel, 'Breadcrumbs')
             ->willReturn($expected);
 
         $page = $this->getMockBuilder(PageInterface::class)
@@ -811,7 +810,7 @@ final class HtmlifyTest extends TestCase
         $page->expects(self::once())
             ->method('getTitle')
             ->willReturn(null);
-        $page->expects(self::exactly(2))
+        $page->expects(self::once())
             ->method('getTextDomain')
             ->willReturn($textDomain);
         $page->expects(self::once())
@@ -820,7 +819,7 @@ final class HtmlifyTest extends TestCase
         $page->expects(self::once())
             ->method('getClass')
             ->willReturn($class);
-        $page->expects(self::once())
+        $page->expects(self::exactly(2))
             ->method('getHref')
             ->willReturn($href);
         $page->expects(self::once())
@@ -896,7 +895,7 @@ final class HtmlifyTest extends TestCase
         $page->expects(self::once())
             ->method('getClass')
             ->willReturn($class);
-        $page->expects(self::once())
+        $page->expects(self::exactly(2))
             ->method('getHref')
             ->willReturn($href);
         $page->expects(self::once())
@@ -972,7 +971,7 @@ final class HtmlifyTest extends TestCase
         $page->expects(self::once())
             ->method('getClass')
             ->willReturn($class);
-        $page->expects(self::once())
+        $page->expects(self::exactly(2))
             ->method('getHref')
             ->willReturn($href);
         $page->expects(self::once())
@@ -988,5 +987,150 @@ final class HtmlifyTest extends TestCase
 
         assert($page instanceof PageInterface);
         self::assertSame($expected, $helper->toHtml('Breadcrumbs', $page, true, false, $attributes));
+    }
+
+    /**
+     * @throws Exception
+     * @throws InvalidArgumentException
+     */
+    public function testHtmlifyWithArrayOfClassesAndAttributes2(): void
+    {
+        $expected = '<button id="breadcrumbs-testIdEscaped" classEscaped="testClassEscaped" onClick=\'{"a":"b"}\' data-test="test-class1 test-class2">testLabelTranslatedAndEscaped</button>';
+
+        $escapedTranslatedLabel = 'testLabelTranslatedAndEscaped';
+        $id                     = 'testId';
+        $class                  = 'test-class';
+        $onclick                = (object) ['a' => 'b'];
+        $testData               = ['test-class1', 'test-class2'];
+        $attributes             = ['data-bs-toggle' => 'dropdown', 'role' => 'button', 'aria-expanded' => 'false'];
+
+        $escapeHtml = $this->getMockBuilder(EscapeHtml::class)
+            ->disableOriginalConstructor()
+            ->getMock();
+        $escapeHtml->expects(self::once())
+            ->method('__invoke')
+            ->with('')
+            ->willReturn($escapedTranslatedLabel);
+
+        $htmlElement = $this->getMockBuilder(HtmlElementInterface::class)
+            ->disableOriginalConstructor()
+            ->getMock();
+        $htmlElement->expects(self::once())
+            ->method('toHtml')
+            ->with('button', ['id' => $id, 'title' => '', 'class' => $class, 'onClick' => $onclick, 'data-test' => $testData] + $attributes, $escapedTranslatedLabel, 'Breadcrumbs')
+            ->willReturn($expected);
+
+        $page = $this->getMockBuilder(PageInterface::class)
+            ->disableOriginalConstructor()
+            ->getMock();
+        $page->expects(self::never())
+            ->method('isVisible');
+        $page->expects(self::never())
+            ->method('getResource');
+        $page->expects(self::never())
+            ->method('getPrivilege');
+        $page->expects(self::never())
+            ->method('getParent');
+        $page->expects(self::once())
+            ->method('getLabel')
+            ->willReturn(null);
+        $page->expects(self::once())
+            ->method('getTitle')
+            ->willReturn(null);
+        $page->expects(self::never())
+            ->method('getTextDomain');
+        $page->expects(self::once())
+            ->method('getId')
+            ->willReturn($id);
+        $page->expects(self::once())
+            ->method('getClass')
+            ->willReturn($class);
+        $page->expects(self::never())
+            ->method('getHref');
+        $page->expects(self::never())
+            ->method('getTarget');
+        $page->expects(self::once())
+            ->method('getCustomProperties')
+            ->willReturn(['onClick' => $onclick, 'data-test' => $testData]);
+
+        assert($escapeHtml instanceof EscapeHtml);
+        assert($htmlElement instanceof HtmlElementInterface);
+        $helper = new Htmlify($escapeHtml, $htmlElement);
+
+        assert($page instanceof PageInterface);
+        self::assertSame($expected, $helper->toHtml('Breadcrumbs', $page, true, false, $attributes, true));
+    }
+
+    /**
+     * @throws Exception
+     * @throws InvalidArgumentException
+     */
+    public function testHtmlifyWithArrayOfClassesAndAttributes3(): void
+    {
+        $expected = '<span id="breadcrumbs-testIdEscaped" classEscaped="testClassEscaped" onClick=\'{"a":"b"}\' data-test="test-class1 test-class2">testLabelTranslatedAndEscaped</span>';
+
+        $escapedTranslatedLabel = 'testLabelTranslatedAndEscaped';
+        $id                     = 'testId';
+        $class                  = 'test-class';
+        $onclick                = (object) ['a' => 'b'];
+        $testData               = ['test-class1', 'test-class2'];
+        $attributes             = ['data-bs-toggle' => 'dropdown', 'role' => 'button', 'aria-expanded' => 'false'];
+
+        $escapeHtml = $this->getMockBuilder(EscapeHtml::class)
+            ->disableOriginalConstructor()
+            ->getMock();
+        $escapeHtml->expects(self::once())
+            ->method('__invoke')
+            ->with('')
+            ->willReturn($escapedTranslatedLabel);
+
+        $htmlElement = $this->getMockBuilder(HtmlElementInterface::class)
+            ->disableOriginalConstructor()
+            ->getMock();
+        $htmlElement->expects(self::once())
+            ->method('toHtml')
+            ->with('span', ['id' => $id, 'title' => '', 'class' => $class, 'onClick' => $onclick, 'data-test' => $testData] + $attributes, $escapedTranslatedLabel, 'Breadcrumbs')
+            ->willReturn($expected);
+
+        $page = $this->getMockBuilder(PageInterface::class)
+            ->disableOriginalConstructor()
+            ->getMock();
+        $page->expects(self::never())
+            ->method('isVisible');
+        $page->expects(self::never())
+            ->method('getResource');
+        $page->expects(self::never())
+            ->method('getPrivilege');
+        $page->expects(self::never())
+            ->method('getParent');
+        $page->expects(self::once())
+            ->method('getLabel')
+            ->willReturn(null);
+        $page->expects(self::once())
+            ->method('getTitle')
+            ->willReturn(null);
+        $page->expects(self::never())
+            ->method('getTextDomain');
+        $page->expects(self::once())
+            ->method('getId')
+            ->willReturn($id);
+        $page->expects(self::once())
+            ->method('getClass')
+            ->willReturn($class);
+        $page->expects(self::once())
+            ->method('getHref')
+            ->willReturn('');
+        $page->expects(self::never())
+            ->method('getTarget');
+        $page->expects(self::once())
+            ->method('getCustomProperties')
+            ->willReturn(['onClick' => $onclick, 'data-test' => $testData]);
+
+        assert($escapeHtml instanceof EscapeHtml);
+        assert($htmlElement instanceof HtmlElementInterface);
+        $helper = new Htmlify($escapeHtml, $htmlElement);
+
+        assert($page instanceof PageInterface);
+        self::assertSame($expected, $helper->toHtml('Breadcrumbs', $page, true, false, $attributes, false));
     }
 }

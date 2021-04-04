@@ -245,4 +245,71 @@ final class FindFromPropertyTest extends TestCase
 
         self::assertSame([1 => $page2], $helper->find($page, $rel, $type));
     }
+
+    /**
+     * @throws Exception
+     * @throws InvalidArgumentException
+     * @throws DomainException
+     */
+    public function testFindWithConvertedRelation2(): void
+    {
+        $rel  = 'rev';
+        $type = '';
+
+        $uri1  = 'test-uri1';
+        $uri2  = 'test-uri2';
+        $page1 = $this->createMock(PageInterface::class);
+        $page2 = $this->createMock(PageInterface::class);
+
+        $config1 = [
+            'type' => 'uri',
+            'uri' => $uri1,
+        ];
+        $config2 = [
+            'type' => 'uri',
+            'uri' => $uri2,
+        ];
+
+        $config = [$config1, $config2];
+
+        $page = $this->getMockBuilder(PageInterface::class)
+            ->disableOriginalConstructor()
+            ->getMock();
+        $page->expects(self::never())
+            ->method('isVisible');
+        $page->expects(self::never())
+            ->method('getResource');
+        $page->expects(self::never())
+            ->method('getPrivilege');
+        $page->expects(self::never())
+            ->method('getParent');
+        $page->expects(self::never())
+            ->method('isActive');
+        $page->expects(self::never())
+            ->method('getRel');
+        $page->expects(self::once())
+            ->method('getRev')
+            ->with($type)
+            ->willReturn($config);
+
+        $acceptHelper = $this->getMockBuilder(AcceptHelperInterface::class)
+            ->disableOriginalConstructor()
+            ->getMock();
+        $acceptHelper->expects(self::exactly(2))
+            ->method('accept')
+            ->withConsecutive([$page1], [$page2])
+            ->willReturnOnConsecutiveCalls(false, true);
+
+        $convertToPages = $this->getMockBuilder(ConvertToPagesInterface::class)
+            ->disableOriginalConstructor()
+            ->getMock();
+        $convertToPages->expects(self::once())
+            ->method('convert')
+            ->with($config)
+            ->willReturn([$page1, $page2]);
+
+        $helper = new FindFromProperty($acceptHelper, $convertToPages);
+
+        self::assertSame([1 => $page2], $helper->find($page, $rel, $type));
+    }
 }

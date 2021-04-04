@@ -28,6 +28,7 @@ final class ConvertToPagesTest extends TestCase
     /**
      * @throws Exception
      * @throws \SebastianBergmann\RecursionContext\InvalidArgumentException
+     * @throws \Laminas\Stdlib\Exception\InvalidArgumentException
      */
     public function testConvertFromPage(): void
     {
@@ -69,6 +70,7 @@ final class ConvertToPagesTest extends TestCase
     /**
      * @throws Exception
      * @throws \SebastianBergmann\RecursionContext\InvalidArgumentException
+     * @throws \Laminas\Stdlib\Exception\InvalidArgumentException
      * @throws InvalidArgumentException
      */
     public function testConvertFromContainer(): void
@@ -116,6 +118,7 @@ final class ConvertToPagesTest extends TestCase
     /**
      * @throws Exception
      * @throws \SebastianBergmann\RecursionContext\InvalidArgumentException
+     * @throws \Laminas\Stdlib\Exception\InvalidArgumentException
      */
     public function testConvertFromString(): void
     {
@@ -165,6 +168,7 @@ final class ConvertToPagesTest extends TestCase
     /**
      * @throws Exception
      * @throws \SebastianBergmann\RecursionContext\InvalidArgumentException
+     * @throws \Laminas\Stdlib\Exception\InvalidArgumentException
      */
     public function testConvertFromStringWithException(): void
     {
@@ -216,6 +220,7 @@ final class ConvertToPagesTest extends TestCase
     /**
      * @throws Exception
      * @throws \SebastianBergmann\RecursionContext\InvalidArgumentException
+     * @throws \Laminas\Stdlib\Exception\InvalidArgumentException
      */
     public function testConvertFromConfig(): void
     {
@@ -266,6 +271,7 @@ final class ConvertToPagesTest extends TestCase
     /**
      * @throws Exception
      * @throws \SebastianBergmann\RecursionContext\InvalidArgumentException
+     * @throws \Laminas\Stdlib\Exception\InvalidArgumentException
      */
     public function testConvertFromConfigWithException(): void
     {
@@ -318,6 +324,7 @@ final class ConvertToPagesTest extends TestCase
     /**
      * @throws Exception
      * @throws \SebastianBergmann\RecursionContext\InvalidArgumentException
+     * @throws \Laminas\Stdlib\Exception\InvalidArgumentException
      */
     public function testConvertFromInteger(): void
     {
@@ -357,6 +364,7 @@ final class ConvertToPagesTest extends TestCase
     /**
      * @throws Exception
      * @throws \SebastianBergmann\RecursionContext\InvalidArgumentException
+     * @throws \Laminas\Stdlib\Exception\InvalidArgumentException
      */
     public function testConvertFromArray(): void
     {
@@ -406,6 +414,7 @@ final class ConvertToPagesTest extends TestCase
     /**
      * @throws Exception
      * @throws \SebastianBergmann\RecursionContext\InvalidArgumentException
+     * @throws \Laminas\Stdlib\Exception\InvalidArgumentException
      */
     public function testConvertFromArrayWithException(): void
     {
@@ -457,6 +466,7 @@ final class ConvertToPagesTest extends TestCase
     /**
      * @throws Exception
      * @throws \SebastianBergmann\RecursionContext\InvalidArgumentException
+     * @throws \Laminas\Stdlib\Exception\InvalidArgumentException
      *
      * @group Convert
      */

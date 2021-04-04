@@ -45,6 +45,8 @@ final class ConvertToPages implements ConvertToPagesInterface
      * @param bool                                                                                        $recursive whether $value should be looped if it is an array or a config
      *
      * @return array<PageInterface>
+     *
+     * @throws \Laminas\Stdlib\Exception\InvalidArgumentException
      */
     public function convert($mixed, bool $recursive = true): array
     {
@@ -83,13 +85,7 @@ final class ConvertToPages implements ConvertToPagesInterface
         }
 
         if ($mixed instanceof Traversable) {
-            try {
-                $mixed = ArrayUtils::iteratorToArray($mixed);
-            } catch (\Laminas\Stdlib\Exception\InvalidArgumentException $e) {
-                $this->logger->err($e);
-
-                return [];
-            }
+            $mixed = ArrayUtils::iteratorToArray($mixed);
         }
 
         if (is_array($mixed) && [] !== $mixed) {
