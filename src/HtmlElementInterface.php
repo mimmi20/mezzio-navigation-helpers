@@ -17,7 +17,7 @@ interface HtmlElementInterface extends HelperInterface
     /**
      * Returns an HTML string
      *
-     * @param array<string, array<string>|bool|string> $attribs
+     * @param array<string, array<string>|bool|float|int|iterable|string|null> $attribs
      *
      * @return string HTML string (<a href="…">Label</a>)
      */
