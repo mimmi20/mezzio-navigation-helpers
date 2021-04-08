@@ -44,7 +44,7 @@ final class HtmlElement implements HtmlElementInterface
     /**
      * Returns an HTML string
      *
-     * @param array<string, array<string>|bool|string> $attribs
+     * @param array<string, array<string>|bool|float|int|iterable|string|null> $attribs
      *
      * @return string HTML string (<a href="…">Label</a>)
      */
@@ -56,8 +56,8 @@ final class HtmlElement implements HtmlElementInterface
     /**
      * Converts an associative array to a string of tag attributes.
      *
-     * @param array<string, array<string>|bool|string> $attribs an array where each key-value pair is converted
-     *                                                          to an attribute name and value
+     * @param array<string, array<string>|bool|float|int|iterable|string|null> $attribs an array where each key-value pair is converted
+     *                                                                                  to an attribute name and value
      */
     private function htmlAttribs(string $prefix, array $attribs): string
     {
