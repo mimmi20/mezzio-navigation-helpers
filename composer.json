@@ -27,7 +27,7 @@
     "ext-intl": "*",
     "infection/infection": "^0.21.5",
     "laminas/laminas-config": "^3.5.0",
-    "laminas/laminas-i18n": "^2.11.0",
+    "laminas/laminas-i18n": "^2.11.1",
     "laminas/laminas-servicemanager": "^3.6.4",
     "mimmi20/coding-standard": "^2.1.0",
     "pepakriz/phpstan-exception-rules": "^0.11.6",
