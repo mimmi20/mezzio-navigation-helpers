@@ -14,7 +14,7 @@ namespace MezzioTest\Navigation\Helper;
 
 use Laminas\I18n\View\Helper\Translate;
 use Laminas\View\Helper\EscapeHtml;
-use Mezzio\Navigation\Helper\HtmlElementInterface;
+use Mezzio\LaminasView\Helper\HtmlElementInterface;
 use Mezzio\Navigation\Helper\Htmlify;
 use Mezzio\Navigation\Page\PageInterface;
 use PHPUnit\Framework\Exception;

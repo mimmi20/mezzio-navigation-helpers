@@ -17,7 +17,8 @@ use Laminas\I18n\View\Helper\Translate;
 use Laminas\ServiceManager\PluginManagerInterface;
 use Laminas\View\Helper\EscapeHtml;
 use Laminas\View\HelperPluginManager as ViewHelperPluginManager;
-use Mezzio\Navigation\Helper\PluginManager as HelperPluginManager;
+use Mezzio\LaminasView\Helper\HtmlElementInterface;
+use Mezzio\LaminasView\Helper\PluginManager as HelperPluginManager;
 use Psr\Container\ContainerExceptionInterface;
 
 use function assert;
