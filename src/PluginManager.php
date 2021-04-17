@@ -46,7 +46,6 @@ final class PluginManager extends AbstractPluginManager implements InteropContai
         FindFromPropertyInterface::class => FindFromPropertyFactory::class,
         FindRoot::class => InvokableFactory::class,
         HtmlifyInterface::class => HtmlifyFactory::class,
-        HtmlElementInterface::class => HtmlElementFactory::class,
     ];
 
     /**
