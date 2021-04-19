@@ -21,6 +21,7 @@ use function array_diff_key;
 use function array_flip;
 use function array_key_exists;
 use function array_merge;
+use function is_string;
 use function mb_strrpos;
 use function mb_strtolower;
 use function mb_substr;
@@ -101,7 +102,7 @@ final class Htmlify implements HtmlifyInterface
             $label = ($this->escaper)($label);
         }
 
-        if (array_key_exists('id', $attributes)) {
+        if (array_key_exists('id', $attributes) && is_string($attributes['id'])) {
             $attributes['id'] = $this->normalizeId($prefix, $attributes['id']);
         }
 
