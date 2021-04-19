@@ -14,12 +14,17 @@ namespace Mezzio\Navigation\Helper;
 
 use Laminas\I18n\View\Helper\Translate;
 use Laminas\View\Helper\EscapeHtml;
-use Mezzio\LaminasView\Helper\HtmlElementInterface;
+use Mezzio\LaminasViewHelper\Helper\HtmlElementInterface;
 use Mezzio\Navigation\Page\PageInterface;
 
 use function array_diff_key;
 use function array_flip;
+use function array_key_exists;
 use function array_merge;
+use function mb_strrpos;
+use function mb_strtolower;
+use function mb_substr;
+use function trim;
 
 final class Htmlify implements HtmlifyInterface
 {
@@ -96,6 +101,20 @@ final class Htmlify implements HtmlifyInterface
             $label = ($this->escaper)($label);
         }
 
-        return $this->htmlElement->toHtml($element, $attributes, $label, $prefix);
+        if (array_key_exists('id', $attributes)) {
+            $attributes['id'] = $this->normalizeId($prefix, $attributes['id']);
+        }
+
+        return $this->htmlElement->toHtml($element, $attributes, $label);
+    }
+
+    /**
+     * Normalize an ID
+     */
+    private function normalizeId(string $prefix, string $value): string
+    {
+        $prefix = mb_strtolower(trim(mb_substr($prefix, (int) mb_strrpos($prefix, '\\')), '\\'));
+
+        return $prefix . '-' . $value;
     }
 }
