@@ -14,7 +14,7 @@ namespace MezzioTest\Navigation\Helper;
 
 use Laminas\I18n\View\Helper\Translate;
 use Laminas\View\Helper\EscapeHtml;
-use Mezzio\LaminasView\Helper\HtmlElementInterface;
+use Mezzio\LaminasViewHelper\Helper\HtmlElementInterface;
 use Mezzio\Navigation\Helper\Htmlify;
 use Mezzio\Navigation\Page\PageInterface;
 use PHPUnit\Framework\Exception;
@@ -65,7 +65,7 @@ final class HtmlifyTest extends TestCase
             ->getMock();
         $htmlElement->expects(self::once())
             ->method('toHtml')
-            ->with('a', ['id' => $id, 'title' => $tranalatedTitle, 'class' => $class, 'href' => $href, 'target' => $target], $escapedTranslatedLabel, 'Breadcrumbs')
+            ->with('a', ['id' => 'breadcrumbs-' . $id, 'title' => $tranalatedTitle, 'class' => $class, 'href' => $href, 'target' => $target], $escapedTranslatedLabel)
             ->willReturn($expected);
 
         $page = $this->getMockBuilder(PageInterface::class)
@@ -142,7 +142,7 @@ final class HtmlifyTest extends TestCase
             ->getMock();
         $htmlElement->expects(self::once())
             ->method('toHtml')
-            ->with('a', ['id' => $id, 'title' => $title, 'class' => $class, 'href' => $href, 'target' => $target], $escapedLabel, 'Breadcrumbs')
+            ->with('a', ['id' => 'breadcrumbs-' . $id, 'title' => $title, 'class' => $class, 'href' => $href, 'target' => $target], $escapedLabel)
             ->willReturn($expected);
 
         $page = $this->getMockBuilder(PageInterface::class)
@@ -225,7 +225,7 @@ final class HtmlifyTest extends TestCase
             ->getMock();
         $htmlElement->expects(self::once())
             ->method('toHtml')
-            ->with('a', ['id' => $id, 'title' => $tranalatedTitle, 'class' => $class, 'href' => $href, 'target' => $target], $translatedLabel, 'Breadcrumbs')
+            ->with('a', ['id' => 'breadcrumbs-' . $id, 'title' => $tranalatedTitle, 'class' => $class, 'href' => $href, 'target' => $target], $translatedLabel)
             ->willReturn($expected);
 
         $page = $this->getMockBuilder(PageInterface::class)
@@ -299,7 +299,7 @@ final class HtmlifyTest extends TestCase
             ->getMock();
         $htmlElement->expects(self::once())
             ->method('toHtml')
-            ->with('a', ['id' => $id, 'title' => $title, 'class' => $class, 'href' => $href, 'target' => $target], $label, 'Breadcrumbs')
+            ->with('a', ['id' => 'breadcrumbs-' . $id, 'title' => $title, 'class' => $class, 'href' => $href, 'target' => $target], $label)
             ->willReturn($expected);
 
         $page = $this->getMockBuilder(PageInterface::class)
@@ -384,7 +384,7 @@ final class HtmlifyTest extends TestCase
             ->getMock();
         $htmlElement->expects(self::once())
             ->method('toHtml')
-            ->with('a', ['id' => $id, 'title' => $tranalatedTitle, 'href' => $href, 'target' => $target], $escapedTranslatedLabel, 'Breadcrumbs')
+            ->with('a', ['id' => 'breadcrumbs-' . $id, 'title' => $tranalatedTitle, 'href' => $href, 'target' => $target], $escapedTranslatedLabel)
             ->willReturn($expected);
 
         $page = $this->getMockBuilder(PageInterface::class)
@@ -459,7 +459,7 @@ final class HtmlifyTest extends TestCase
             ->getMock();
         $htmlElement->expects(self::once())
             ->method('toHtml')
-            ->with('a', ['id' => $id, 'title' => $title, 'href' => $href, 'target' => $target], $escapedLabel, 'Breadcrumbs')
+            ->with('a', ['id' => 'breadcrumbs-' . $id, 'title' => $title, 'href' => $href, 'target' => $target], $escapedLabel)
             ->willReturn($expected);
 
         $page = $this->getMockBuilder(PageInterface::class)
@@ -542,7 +542,7 @@ final class HtmlifyTest extends TestCase
             ->getMock();
         $htmlElement->expects(self::once())
             ->method('toHtml')
-            ->with('span', ['id' => $id, 'title' => $tranalatedTitle, 'class' => $class], $escapedTranslatedLabel, 'Breadcrumbs')
+            ->with('span', ['id' => 'breadcrumbs-' . $id, 'title' => $tranalatedTitle, 'class' => $class], $escapedTranslatedLabel)
             ->willReturn($expected);
 
         $page = $this->getMockBuilder(PageInterface::class)
@@ -616,7 +616,7 @@ final class HtmlifyTest extends TestCase
             ->getMock();
         $htmlElement->expects(self::once())
             ->method('toHtml')
-            ->with('span', ['id' => $id, 'title' => $title, 'class' => $class], $escapedLabel, 'Breadcrumbs')
+            ->with('span', ['id' => 'breadcrumbs-' . $id, 'title' => $title, 'class' => $class], $escapedLabel)
             ->willReturn($expected);
 
         $page = $this->getMockBuilder(PageInterface::class)
@@ -703,7 +703,7 @@ final class HtmlifyTest extends TestCase
             ->getMock();
         $htmlElement->expects(self::once())
             ->method('toHtml')
-            ->with('a', ['id' => $id, 'title' => $tranalatedTitle, 'class' => $class, 'href' => $href, 'target' => $target, 'onClick' => $onclick, 'data-test' => $testData], $escapedTranslatedLabel, 'Breadcrumbs')
+            ->with('a', ['id' => 'breadcrumbs-' . $id, 'title' => $tranalatedTitle, 'class' => $class, 'href' => $href, 'target' => $target, 'onClick' => $onclick, 'data-test' => $testData], $escapedTranslatedLabel)
             ->willReturn($expected);
 
         $page = $this->getMockBuilder(PageInterface::class)
@@ -790,7 +790,7 @@ final class HtmlifyTest extends TestCase
             ->getMock();
         $htmlElement->expects(self::once())
             ->method('toHtml')
-            ->with('a', ['id' => $id, 'title' => null, 'class' => $class, 'href' => $href, 'target' => $target, 'onClick' => $onclick, 'data-test' => $testData], $escapedTranslatedLabel, 'Breadcrumbs')
+            ->with('a', ['id' => 'breadcrumbs-' . $id, 'title' => null, 'class' => $class, 'href' => $href, 'target' => $target, 'onClick' => $onclick, 'data-test' => $testData], $escapedTranslatedLabel)
             ->willReturn($expected);
 
         $page = $this->getMockBuilder(PageInterface::class)
@@ -867,7 +867,7 @@ final class HtmlifyTest extends TestCase
             ->getMock();
         $htmlElement->expects(self::once())
             ->method('toHtml')
-            ->with('a', ['id' => $id, 'title' => '', 'class' => $class, 'href' => $href, 'target' => $target, 'onClick' => $onclick, 'data-test' => $testData], $escapedTranslatedLabel, 'Breadcrumbs')
+            ->with('a', ['id' => 'breadcrumbs-' . $id, 'title' => '', 'class' => $class, 'href' => $href, 'target' => $target, 'onClick' => $onclick, 'data-test' => $testData], $escapedTranslatedLabel)
             ->willReturn($expected);
 
         $page = $this->getMockBuilder(PageInterface::class)
@@ -943,7 +943,7 @@ final class HtmlifyTest extends TestCase
             ->getMock();
         $htmlElement->expects(self::once())
             ->method('toHtml')
-            ->with('a', ['id' => $id, 'title' => '', 'class' => $class, 'href' => $href, 'target' => $target, 'onClick' => $onclick, 'data-test' => $testData] + $attributes, $escapedTranslatedLabel, 'Breadcrumbs')
+            ->with('a', ['id' => 'breadcrumbs-' . $id, 'title' => '', 'class' => $class, 'href' => $href, 'target' => $target, 'onClick' => $onclick, 'data-test' => $testData] + $attributes, $escapedTranslatedLabel)
             ->willReturn($expected);
 
         $page = $this->getMockBuilder(PageInterface::class)
@@ -1017,7 +1017,7 @@ final class HtmlifyTest extends TestCase
             ->getMock();
         $htmlElement->expects(self::once())
             ->method('toHtml')
-            ->with('button', ['id' => $id, 'title' => '', 'class' => $class, 'onClick' => $onclick, 'data-test' => $testData] + $attributes, $escapedTranslatedLabel, 'Breadcrumbs')
+            ->with('button', ['id' => 'breadcrumbs-' . $id, 'title' => '', 'class' => $class, 'onClick' => $onclick, 'data-test' => $testData] + $attributes, $escapedTranslatedLabel)
             ->willReturn($expected);
 
         $page = $this->getMockBuilder(PageInterface::class)
@@ -1089,7 +1089,7 @@ final class HtmlifyTest extends TestCase
             ->getMock();
         $htmlElement->expects(self::once())
             ->method('toHtml')
-            ->with('span', ['id' => $id, 'title' => '', 'class' => $class, 'onClick' => $onclick, 'data-test' => $testData] + $attributes, $escapedTranslatedLabel, 'Breadcrumbs')
+            ->with('span', ['id' => 'breadcrumbs-' . $id, 'title' => '', 'class' => $class, 'onClick' => $onclick, 'data-test' => $testData] + $attributes, $escapedTranslatedLabel)
             ->willReturn($expected);
 
         $page = $this->getMockBuilder(PageInterface::class)
