@@ -17,7 +17,7 @@
     "laminas/laminas-json": "^3.2.0",
     "mezzio/mezzio-laminasviewrenderer": "^2.3.0",
     "mimmi20/mezzio-generic-authorization": "^2.0.1",
-    "mimmi20/mezzio-laminasviewrenderer-helpers": "^1.0.3",
+    "mimmi20/mezzio-laminasviewrenderer-helpers": "^1.0.4",
     "mimmi20/mezzio-navigation": "^2.0.3"
   },
   "conflict": {
