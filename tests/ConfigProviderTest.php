@@ -35,15 +35,34 @@ final class ConfigProviderTest extends TestCase
     {
         $config = ($this->provider)();
         self::assertIsArray($config);
-
+        self::assertCount(1, $config);
         self::assertArrayHasKey('dependencies', $config);
 
         $dependencies = $config['dependencies'];
         self::assertIsArray($dependencies);
+        self::assertCount(1, $dependencies);
         self::assertArrayHasKey('factories', $dependencies);
 
         $factories = $dependencies['factories'];
         self::assertIsArray($factories);
+        self::assertCount(1, $factories);
+        self::assertArrayHasKey(PluginManager::class, $factories);
+    }
+
+    /**
+     * @throws Exception
+     * @throws InvalidArgumentException
+     */
+    public function testReturnedArrayContainsDependencies2(): void
+    {
+        $dependencies = $this->provider->getDependencyConfig();
+        self::assertIsArray($dependencies);
+        self::assertCount(1, $dependencies);
+        self::assertArrayHasKey('factories', $dependencies);
+
+        $factories = $dependencies['factories'];
+        self::assertIsArray($factories);
+        self::assertCount(1, $factories);
         self::assertArrayHasKey(PluginManager::class, $factories);
     }
 }
