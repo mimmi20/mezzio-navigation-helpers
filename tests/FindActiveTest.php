@@ -30,19 +30,7 @@ final class FindActiveTest extends TestCase
      */
     public function testFindActiveNoActivePages(): void
     {
-        $parentPage = $this->getMockBuilder(PageInterface::class)
-            ->disableOriginalConstructor()
-            ->getMock();
-        $parentPage->expects(self::never())
-            ->method('isVisible');
-        $parentPage->expects(self::never())
-            ->method('getResource');
-        $parentPage->expects(self::never())
-            ->method('getPrivilege');
-        $parentPage->expects(self::never())
-            ->method('getParent');
-        $parentPage->expects(self::never())
-            ->method('isActive');
+        $container = new Navigation();
 
         $page = $this->getMockBuilder(PageInterface::class)
             ->disableOriginalConstructor()
@@ -57,8 +45,16 @@ final class FindActiveTest extends TestCase
             ->method('getParent');
         $page->expects(self::never())
             ->method('isActive');
+        $page->expects(self::once())
+            ->method('hashCode')
+            ->willReturn('page');
+        $page->expects(self::exactly(2))
+            ->method('getOrder')
+            ->willReturn(0);
+        $page->expects(self::once())
+            ->method('setParent')
+            ->with($container);
 
-        $container = new Navigation();
         $container->addPage($page);
 
         $acceptHelper = $this->getMockBuilder(AcceptHelperInterface::class)
@@ -81,19 +77,7 @@ final class FindActiveTest extends TestCase
      */
     public function testFindActiveOneActivePage(): void
     {
-        $parentPage = $this->getMockBuilder(PageInterface::class)
-            ->disableOriginalConstructor()
-            ->getMock();
-        $parentPage->expects(self::never())
-            ->method('isVisible');
-        $parentPage->expects(self::never())
-            ->method('getResource');
-        $parentPage->expects(self::never())
-            ->method('getPrivilege');
-        $parentPage->expects(self::never())
-            ->method('getParent');
-        $parentPage->expects(self::never())
-            ->method('isActive');
+        $container = new Navigation();
 
         $page = $this->getMockBuilder(PageInterface::class)
             ->disableOriginalConstructor()
@@ -110,8 +94,16 @@ final class FindActiveTest extends TestCase
             ->method('isActive')
             ->with(false)
             ->willReturn(true);
+        $page->expects(self::once())
+            ->method('hashCode')
+            ->willReturn('page');
+        $page->expects(self::exactly(2))
+            ->method('getOrder')
+            ->willReturn(0);
+        $page->expects(self::once())
+            ->method('setParent')
+            ->with($container);
 
-        $container = new Navigation();
         $container->addPage($page);
 
         $acceptHelper = $this->getMockBuilder(AcceptHelperInterface::class)
@@ -139,6 +131,8 @@ final class FindActiveTest extends TestCase
      */
     public function testFindActiveOneActivePageOutOfRange(): void
     {
+        $container = new Navigation();
+
         $page = $this->getMockBuilder(PageInterface::class)
             ->disableOriginalConstructor()
             ->getMock();
@@ -152,8 +146,16 @@ final class FindActiveTest extends TestCase
             ->method('getParent');
         $page->expects(self::never())
             ->method('isActive');
+        $page->expects(self::once())
+            ->method('hashCode')
+            ->willReturn('page');
+        $page->expects(self::exactly(2))
+            ->method('getOrder')
+            ->willReturn(0);
+        $page->expects(self::once())
+            ->method('setParent')
+            ->with($container);
 
-        $container = new Navigation();
         $container->addPage($page);
 
         $acceptHelper = $this->getMockBuilder(AcceptHelperInterface::class)
@@ -184,24 +186,81 @@ final class FindActiveTest extends TestCase
         $parentPage->setResource($resource);
         $parentPage->setPrivilege($privilege);
 
-        $page = $this->getMockBuilder(PageInterface::class)
+        $page1 = $this->getMockBuilder(PageInterface::class)
             ->disableOriginalConstructor()
             ->getMock();
-        $page->expects(self::never())
+        $page1->expects(self::never())
             ->method('isVisible');
-        $page->expects(self::never())
+        $page1->expects(self::never())
             ->method('getResource');
-        $page->expects(self::never())
+        $page1->expects(self::never())
             ->method('getPrivilege');
-        $page->expects(self::once())
+        $page1->expects(self::once())
             ->method('getParent')
             ->willReturn($parentPage);
-        $page->expects(self::once())
+        $page1->expects(self::once())
             ->method('isActive')
             ->with(false)
             ->willReturn(true);
+        $page1->expects(self::once())
+            ->method('hashCode')
+            ->willReturn('page1');
+        $page1->expects(self::exactly(2))
+            ->method('getOrder')
+            ->willReturn(0);
+        $page1->expects(self::once())
+            ->method('setParent')
+            ->with($parentPage);
 
-        $parentPage->addPage($page);
+        $page2 = $this->getMockBuilder(PageInterface::class)
+            ->disableOriginalConstructor()
+            ->getMock();
+        $page2->expects(self::never())
+            ->method('isVisible');
+        $page2->expects(self::never())
+            ->method('getResource');
+        $page2->expects(self::never())
+            ->method('getPrivilege');
+        $page2->expects(self::never())
+            ->method('getParent');
+        $page2->expects(self::never())
+            ->method('isActive');
+        $page2->expects(self::once())
+            ->method('hashCode')
+            ->willReturn('page2');
+        $page2->expects(self::exactly(2))
+            ->method('getOrder')
+            ->willReturn(0);
+        $page2->expects(self::once())
+            ->method('setParent')
+            ->with($parentPage);
+
+        $page3 = $this->getMockBuilder(PageInterface::class)
+            ->disableOriginalConstructor()
+            ->getMock();
+        $page3->expects(self::never())
+            ->method('isVisible');
+        $page3->expects(self::never())
+            ->method('getResource');
+        $page3->expects(self::never())
+            ->method('getPrivilege');
+        $page3->expects(self::never())
+            ->method('getParent');
+        $page3->expects(self::never())
+            ->method('isActive');
+        $page3->expects(self::once())
+            ->method('hashCode')
+            ->willReturn('page3');
+        $page3->expects(self::exactly(2))
+            ->method('getOrder')
+            ->willReturn(0);
+        $page3->expects(self::once())
+            ->method('setParent')
+            ->with($parentPage);
+
+        $parentPage->addPage($page1);
+        $parentPage->addPage($page2);
+        $parentPage->addPage($page3);
 
         $container = new Navigation();
         $container->addPage($parentPage);
@@ -209,10 +268,10 @@ final class FindActiveTest extends TestCase
         $acceptHelper = $this->getMockBuilder(AcceptHelperInterface::class)
             ->disableOriginalConstructor()
             ->getMock();
-        $acceptHelper->expects(self::exactly(2))
+        $acceptHelper->expects(self::exactly(4))
             ->method('accept')
-            ->withConsecutive([$page], [$parentPage])
-            ->willReturnOnConsecutiveCalls(true, true);
+            ->withConsecutive([$page1], [$page2], [$page3], [$parentPage])
+            ->willReturnOnConsecutiveCalls(true, false, false, true);
 
         $helper = new FindActive($acceptHelper);
 
@@ -257,6 +316,15 @@ final class FindActiveTest extends TestCase
             ->method('isActive')
             ->with(false)
             ->willReturn(true);
+        $page1->expects(self::once())
+            ->method('hashCode')
+            ->willReturn('page1');
+        $page1->expects(self::exactly(2))
+            ->method('getOrder')
+            ->willReturn(0);
+        $page1->expects(self::once())
+            ->method('setParent')
+            ->with($parentPage);
 
         $page2 = new Uri();
         $page2->setActive(true);
@@ -329,6 +397,15 @@ final class FindActiveTest extends TestCase
             ->method('isActive')
             ->with(false)
             ->willReturn(true);
+        $page1->expects(self::once())
+            ->method('hashCode')
+            ->willReturn('page1');
+        $page1->expects(self::exactly(2))
+            ->method('getOrder')
+            ->willReturn(0);
+        $page1->expects(self::once())
+            ->method('setParent')
+            ->with($parentPage);
 
         $page2 = new Uri();
         $page2->setActive(true);
@@ -400,6 +477,15 @@ final class FindActiveTest extends TestCase
             ->method('isActive')
             ->with(false)
             ->willReturn(true);
+        $page1->expects(self::once())
+            ->method('hashCode')
+            ->willReturn('page1');
+        $page1->expects(self::exactly(2))
+            ->method('getOrder')
+            ->willReturn(0);
+        $page1->expects(self::once())
+            ->method('setParent')
+            ->with($parentPage);
 
         $page2 = new Uri();
         $page2->setActive(true);
