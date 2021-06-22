@@ -50,6 +50,12 @@ final class FindFromPropertyTest extends TestCase
             ->method('getRel');
         $page->expects(self::never())
             ->method('getRev');
+        $page->expects(self::never())
+            ->method('hashCode');
+        $page->expects(self::never())
+            ->method('getOrder');
+        $page->expects(self::never())
+            ->method('setParent');
 
         $acceptHelper = $this->getMockBuilder(AcceptHelperInterface::class)
             ->disableOriginalConstructor()
@@ -106,6 +112,12 @@ final class FindFromPropertyTest extends TestCase
             ->willReturn(null);
         $page->expects(self::never())
             ->method('getRev');
+        $page->expects(self::never())
+            ->method('hashCode');
+        $page->expects(self::never())
+            ->method('getOrder');
+        $page->expects(self::never())
+            ->method('setParent');
 
         $acceptHelper = $this->getMockBuilder(AcceptHelperInterface::class)
             ->disableOriginalConstructor()
@@ -159,6 +171,12 @@ final class FindFromPropertyTest extends TestCase
             ->willReturn($configArray);
         $page->expects(self::never())
             ->method('getRev');
+        $page->expects(self::never())
+            ->method('hashCode');
+        $page->expects(self::never())
+            ->method('getOrder');
+        $page->expects(self::never())
+            ->method('setParent');
 
         $acceptHelper = $this->getMockBuilder(AcceptHelperInterface::class)
             ->disableOriginalConstructor()
@@ -224,6 +242,12 @@ final class FindFromPropertyTest extends TestCase
             ->willReturn($config);
         $page->expects(self::never())
             ->method('getRev');
+        $page->expects(self::never())
+            ->method('hashCode');
+        $page->expects(self::never())
+            ->method('getOrder');
+        $page->expects(self::never())
+            ->method('setParent');
 
         $acceptHelper = $this->getMockBuilder(AcceptHelperInterface::class)
             ->disableOriginalConstructor()
@@ -291,6 +315,12 @@ final class FindFromPropertyTest extends TestCase
             ->method('getRev')
             ->with($type)
             ->willReturn($config);
+        $page->expects(self::never())
+            ->method('hashCode');
+        $page->expects(self::never())
+            ->method('getOrder');
+        $page->expects(self::never())
+            ->method('setParent');
 
         $acceptHelper = $this->getMockBuilder(AcceptHelperInterface::class)
             ->disableOriginalConstructor()

@@ -43,6 +43,12 @@ final class FindRootTest extends TestCase
             ->getMock();
         $page->expects(self::never())
             ->method('getParent');
+        $page->expects(self::never())
+            ->method('hashCode');
+        $page->expects(self::never())
+            ->method('getOrder');
+        $page->expects(self::never())
+            ->method('setParent');
 
         assert($root instanceof ContainerInterface);
         $this->findRoot->setRoot($root);
@@ -66,6 +72,12 @@ final class FindRootTest extends TestCase
         $parentPage->expects(self::once())
             ->method('getParent')
             ->willReturn($root);
+        $parentPage->expects(self::never())
+            ->method('hashCode');
+        $parentPage->expects(self::never())
+            ->method('getOrder');
+        $parentPage->expects(self::never())
+            ->method('setParent');
 
         $page = $this->getMockBuilder(PageInterface::class)
             ->disableOriginalConstructor()
@@ -73,6 +85,12 @@ final class FindRootTest extends TestCase
         $page->expects(self::once())
             ->method('getParent')
             ->willReturn($parentPage);
+        $page->expects(self::never())
+            ->method('hashCode');
+        $page->expects(self::never())
+            ->method('getOrder');
+        $page->expects(self::never())
+            ->method('setParent');
 
         assert($page instanceof PageInterface);
         self::assertSame($root, $this->findRoot->find($page));
@@ -90,6 +108,12 @@ final class FindRootTest extends TestCase
         $page->expects(self::once())
             ->method('getParent')
             ->willReturn(null);
+        $page->expects(self::never())
+            ->method('hashCode');
+        $page->expects(self::never())
+            ->method('getOrder');
+        $page->expects(self::never())
+            ->method('setParent');
 
         assert($page instanceof PageInterface);
         self::assertSame($page, $this->findRoot->find($page));

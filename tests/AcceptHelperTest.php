@@ -48,6 +48,12 @@ final class AcceptHelperTest extends TestCase
             ->method('getResource');
         $page->expects(self::never())
             ->method('getPrivilege');
+        $page->expects(self::never())
+            ->method('hashCode');
+        $page->expects(self::never())
+            ->method('getOrder');
+        $page->expects(self::never())
+            ->method('setParent');
 
         assert($page instanceof PageInterface);
         self::assertFalse($helper->accept($page));
@@ -87,6 +93,12 @@ final class AcceptHelperTest extends TestCase
         $page->expects(self::once())
             ->method('getPrivilege')
             ->willReturn($privilege);
+        $page->expects(self::never())
+            ->method('hashCode');
+        $page->expects(self::never())
+            ->method('getOrder');
+        $page->expects(self::never())
+            ->method('setParent');
 
         assert($page instanceof PageInterface);
         self::assertFalse($helper->accept($page));
@@ -120,6 +132,12 @@ final class AcceptHelperTest extends TestCase
             ->method('isVisible')
             ->with(false)
             ->willReturn(false);
+        $parentPage->expects(self::never())
+            ->method('hashCode');
+        $parentPage->expects(self::never())
+            ->method('getOrder');
+        $parentPage->expects(self::never())
+            ->method('setParent');
 
         $page = $this->getMockBuilder(PageInterface::class)
             ->disableOriginalConstructor()
@@ -137,6 +155,12 @@ final class AcceptHelperTest extends TestCase
         $page->expects(self::once())
             ->method('getParent')
             ->willReturn($parentPage);
+        $page->expects(self::never())
+            ->method('hashCode');
+        $page->expects(self::never())
+            ->method('getOrder');
+        $page->expects(self::never())
+            ->method('setParent');
 
         assert($page instanceof PageInterface);
         self::assertFalse($helper->accept($page));
@@ -166,6 +190,12 @@ final class AcceptHelperTest extends TestCase
             ->method('isVisible')
             ->with(false)
             ->willReturn(false);
+        $parentPage->expects(self::never())
+            ->method('hashCode');
+        $parentPage->expects(self::never())
+            ->method('getOrder');
+        $parentPage->expects(self::never())
+            ->method('setParent');
 
         $page = $this->getMockBuilder(PageInterface::class)
             ->disableOriginalConstructor()
@@ -183,6 +213,12 @@ final class AcceptHelperTest extends TestCase
         $page->expects(self::once())
             ->method('getParent')
             ->willReturn($parentPage);
+        $page->expects(self::never())
+            ->method('hashCode');
+        $page->expects(self::never())
+            ->method('getOrder');
+        $page->expects(self::never())
+            ->method('setParent');
 
         assert($page instanceof PageInterface);
         self::assertFalse($helper->accept($page));
@@ -215,6 +251,12 @@ final class AcceptHelperTest extends TestCase
             ->method('isVisible')
             ->with(false)
             ->willReturn(false);
+        $parentPage->expects(self::never())
+            ->method('hashCode');
+        $parentPage->expects(self::never())
+            ->method('getOrder');
+        $parentPage->expects(self::never())
+            ->method('setParent');
 
         $page = $this->getMockBuilder(PageInterface::class)
             ->disableOriginalConstructor()
@@ -232,6 +274,12 @@ final class AcceptHelperTest extends TestCase
         $page->expects(self::once())
             ->method('getParent')
             ->willReturn($parentPage);
+        $page->expects(self::never())
+            ->method('hashCode');
+        $page->expects(self::never())
+            ->method('getOrder');
+        $page->expects(self::never())
+            ->method('setParent');
 
         assert($page instanceof PageInterface);
         self::assertFalse($helper->accept($page));
@@ -264,6 +312,12 @@ final class AcceptHelperTest extends TestCase
             ->method('isVisible')
             ->with(false)
             ->willReturn(false);
+        $parentPage->expects(self::never())
+            ->method('hashCode');
+        $parentPage->expects(self::never())
+            ->method('getOrder');
+        $parentPage->expects(self::never())
+            ->method('setParent');
 
         $page = $this->getMockBuilder(PageInterface::class)
             ->disableOriginalConstructor()
@@ -281,6 +335,12 @@ final class AcceptHelperTest extends TestCase
         $page->expects(self::once())
             ->method('getParent')
             ->willReturn($parentPage);
+        $page->expects(self::never())
+            ->method('hashCode');
+        $page->expects(self::never())
+            ->method('getOrder');
+        $page->expects(self::never())
+            ->method('setParent');
 
         assert($page instanceof PageInterface);
         self::assertFalse($helper->accept($page));
@@ -321,6 +381,12 @@ final class AcceptHelperTest extends TestCase
             ->willReturn(null);
         $page->expects(self::never())
             ->method('getParent');
+        $page->expects(self::never())
+            ->method('hashCode');
+        $page->expects(self::never())
+            ->method('getOrder');
+        $page->expects(self::never())
+            ->method('setParent');
 
         assert($page instanceof PageInterface);
         self::assertTrue($helper->accept($page, false));
@@ -367,6 +433,12 @@ final class AcceptHelperTest extends TestCase
         $page->expects(self::once())
             ->method('getParent')
             ->willReturn($parentPage);
+        $page->expects(self::never())
+            ->method('hashCode');
+        $page->expects(self::never())
+            ->method('getOrder');
+        $page->expects(self::never())
+            ->method('setParent');
 
         assert($page instanceof PageInterface);
         self::assertTrue($helper->accept($page));

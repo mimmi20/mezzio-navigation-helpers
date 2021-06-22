@@ -88,8 +88,6 @@ final class FindActive implements FindActiveInterface
         }
 
         if (is_int($maxDepth) && $foundDepth > $maxDepth && $found instanceof PageInterface) {
-            assert($foundDepth > $maxDepth);
-
             while ($foundDepth > $maxDepth) {
                 assert($foundDepth >= $minDepth);
 

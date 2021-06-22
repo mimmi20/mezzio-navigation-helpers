@@ -103,6 +103,12 @@ final class HtmlifyTest extends TestCase
         $page->expects(self::once())
             ->method('getCustomProperties')
             ->willReturn([]);
+        $page->expects(self::never())
+            ->method('hashCode');
+        $page->expects(self::never())
+            ->method('getOrder');
+        $page->expects(self::never())
+            ->method('setParent');
 
         assert($escapeHtml instanceof EscapeHtml);
         assert($htmlElement instanceof HtmlElementInterface);
@@ -179,6 +185,12 @@ final class HtmlifyTest extends TestCase
         $page->expects(self::once())
             ->method('getCustomProperties')
             ->willReturn([]);
+        $page->expects(self::never())
+            ->method('hashCode');
+        $page->expects(self::never())
+            ->method('getOrder');
+        $page->expects(self::never())
+            ->method('setParent');
 
         assert($escapeHtml instanceof EscapeHtml);
         assert($htmlElement instanceof HtmlElementInterface);
@@ -263,6 +275,12 @@ final class HtmlifyTest extends TestCase
         $page->expects(self::once())
             ->method('getCustomProperties')
             ->willReturn([]);
+        $page->expects(self::never())
+            ->method('hashCode');
+        $page->expects(self::never())
+            ->method('getOrder');
+        $page->expects(self::never())
+            ->method('setParent');
 
         assert($escapeHtml instanceof EscapeHtml);
         assert($htmlElement instanceof HtmlElementInterface);
@@ -336,6 +354,12 @@ final class HtmlifyTest extends TestCase
         $page->expects(self::once())
             ->method('getCustomProperties')
             ->willReturn([]);
+        $page->expects(self::never())
+            ->method('hashCode');
+        $page->expects(self::never())
+            ->method('getOrder');
+        $page->expects(self::never())
+            ->method('setParent');
 
         assert($escapeHtml instanceof EscapeHtml);
         assert($htmlElement instanceof HtmlElementInterface);
@@ -421,6 +445,12 @@ final class HtmlifyTest extends TestCase
         $page->expects(self::once())
             ->method('getCustomProperties')
             ->willReturn([]);
+        $page->expects(self::never())
+            ->method('hashCode');
+        $page->expects(self::never())
+            ->method('getOrder');
+        $page->expects(self::never())
+            ->method('setParent');
 
         assert($escapeHtml instanceof EscapeHtml);
         assert($htmlElement instanceof HtmlElementInterface);
@@ -495,6 +525,12 @@ final class HtmlifyTest extends TestCase
         $page->expects(self::once())
             ->method('getCustomProperties')
             ->willReturn([]);
+        $page->expects(self::never())
+            ->method('hashCode');
+        $page->expects(self::never())
+            ->method('getOrder');
+        $page->expects(self::never())
+            ->method('setParent');
 
         assert($escapeHtml instanceof EscapeHtml);
         assert($htmlElement instanceof HtmlElementInterface);
@@ -579,6 +615,12 @@ final class HtmlifyTest extends TestCase
         $page->expects(self::once())
             ->method('getCustomProperties')
             ->willReturn([]);
+        $page->expects(self::never())
+            ->method('hashCode');
+        $page->expects(self::never())
+            ->method('getOrder');
+        $page->expects(self::never())
+            ->method('setParent');
 
         assert($escapeHtml instanceof EscapeHtml);
         assert($htmlElement instanceof HtmlElementInterface);
@@ -652,6 +694,12 @@ final class HtmlifyTest extends TestCase
         $page->expects(self::once())
             ->method('getCustomProperties')
             ->willReturn([]);
+        $page->expects(self::never())
+            ->method('hashCode');
+        $page->expects(self::never())
+            ->method('getOrder');
+        $page->expects(self::never())
+            ->method('setParent');
 
         assert($escapeHtml instanceof EscapeHtml);
         assert($htmlElement instanceof HtmlElementInterface);
@@ -741,6 +789,12 @@ final class HtmlifyTest extends TestCase
         $page->expects(self::once())
             ->method('getCustomProperties')
             ->willReturn(['onClick' => $onclick, 'data-test' => $testData]);
+        $page->expects(self::never())
+            ->method('hashCode');
+        $page->expects(self::never())
+            ->method('getOrder');
+        $page->expects(self::never())
+            ->method('setParent');
 
         assert($escapeHtml instanceof EscapeHtml);
         assert($htmlElement instanceof HtmlElementInterface);
@@ -828,6 +882,12 @@ final class HtmlifyTest extends TestCase
         $page->expects(self::once())
             ->method('getCustomProperties')
             ->willReturn(['onClick' => $onclick, 'data-test' => $testData]);
+        $page->expects(self::never())
+            ->method('hashCode');
+        $page->expects(self::never())
+            ->method('getOrder');
+        $page->expects(self::never())
+            ->method('setParent');
 
         assert($escapeHtml instanceof EscapeHtml);
         assert($htmlElement instanceof HtmlElementInterface);
@@ -904,6 +964,12 @@ final class HtmlifyTest extends TestCase
         $page->expects(self::once())
             ->method('getCustomProperties')
             ->willReturn(['onClick' => $onclick, 'data-test' => $testData]);
+        $page->expects(self::never())
+            ->method('hashCode');
+        $page->expects(self::never())
+            ->method('getOrder');
+        $page->expects(self::never())
+            ->method('setParent');
 
         assert($escapeHtml instanceof EscapeHtml);
         assert($htmlElement instanceof HtmlElementInterface);
@@ -980,6 +1046,12 @@ final class HtmlifyTest extends TestCase
         $page->expects(self::once())
             ->method('getCustomProperties')
             ->willReturn(['onClick' => $onclick, 'data-test' => $testData]);
+        $page->expects(self::never())
+            ->method('hashCode');
+        $page->expects(self::never())
+            ->method('getOrder');
+        $page->expects(self::never())
+            ->method('setParent');
 
         assert($escapeHtml instanceof EscapeHtml);
         assert($htmlElement instanceof HtmlElementInterface);
@@ -1052,6 +1124,12 @@ final class HtmlifyTest extends TestCase
         $page->expects(self::once())
             ->method('getCustomProperties')
             ->willReturn(['onClick' => $onclick, 'data-test' => $testData]);
+        $page->expects(self::never())
+            ->method('hashCode');
+        $page->expects(self::never())
+            ->method('getOrder');
+        $page->expects(self::never())
+            ->method('setParent');
 
         assert($escapeHtml instanceof EscapeHtml);
         assert($htmlElement instanceof HtmlElementInterface);
@@ -1125,6 +1203,12 @@ final class HtmlifyTest extends TestCase
         $page->expects(self::once())
             ->method('getCustomProperties')
             ->willReturn(['onClick' => $onclick, 'data-test' => $testData]);
+        $page->expects(self::never())
+            ->method('hashCode');
+        $page->expects(self::never())
+            ->method('getOrder');
+        $page->expects(self::never())
+            ->method('setParent');
 
         assert($escapeHtml instanceof EscapeHtml);
         assert($htmlElement instanceof HtmlElementInterface);
