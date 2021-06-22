@@ -49,8 +49,8 @@ final class FindActive implements FindActiveInterface
      *                                      null value means no maximum
      *                                      depth required.
      *
-     * @return array<string, int|PageInterface|null> an associative array with the values 'depth' and 'page',
-     *                       or an empty array if not found
+     * @return array<string, int|PageInterface|null> an associative array with the values 'depth' and 'page', or an empty array if not found
+     * @phpstan-return array{page?: PageInterface|null, depth?: int|null}
      */
     public function find(ContainerInterface $container, ?int $minDepth, ?int $maxDepth): array
     {
