@@ -12,7 +12,7 @@
     }
   ],
   "require": {
-    "php": "^7.4.7 || ^8.0.0",
+    "php": "^7.4.3 || ^8.0.0",
     "ext-mbstring": "*",
     "laminas/laminas-json": "^3.2.0",
     "laminas/laminas-log": "^2.13.1",
