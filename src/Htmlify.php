@@ -14,8 +14,8 @@ namespace Mezzio\Navigation\Helper;
 
 use Laminas\I18n\View\Helper\Translate;
 use Laminas\View\Helper\EscapeHtml;
-use Mezzio\LaminasViewHelper\Helper\HtmlElementInterface;
 use Mezzio\Navigation\Page\PageInterface;
+use Mimmi20\LaminasView\Helper\HtmlElement\Helper\HtmlElementInterface;
 
 use function array_diff_key;
 use function array_flip;

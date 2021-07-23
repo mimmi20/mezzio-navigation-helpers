@@ -14,16 +14,10 @@ namespace Mezzio\Navigation\Helper;
 
 use Interop\Container\ContainerInterface;
 use Laminas\I18n\View\Helper\Translate;
-use Laminas\ServiceManager\PluginManagerInterface;
 use Laminas\View\Helper\EscapeHtml;
 use Laminas\View\HelperPluginManager as ViewHelperPluginManager;
-use Mezzio\LaminasViewHelper\Helper\HtmlElementInterface;
-use Mezzio\LaminasViewHelper\Helper\PluginManager as HelperPluginManager;
+use Mimmi20\LaminasView\Helper\HtmlElement\Helper\HtmlElementInterface;
 use Psr\Container\ContainerExceptionInterface;
-
-use function assert;
-use function get_class;
-use function sprintf;
 
 final class HtmlifyFactory
 {
@@ -34,16 +28,6 @@ final class HtmlifyFactory
      */
     public function __invoke(ContainerInterface $container): Htmlify
     {
-        $helperPluginManager = $container->get(HelperPluginManager::class);
-        assert(
-            $helperPluginManager instanceof PluginManagerInterface,
-            sprintf(
-                '$helperPluginManager should be an Instance of %s, but was %s',
-                HelperPluginManager::class,
-                get_class($helperPluginManager)
-            )
-        );
-
         $plugin     = $container->get(ViewHelperPluginManager::class);
         $translator = null;
 
@@ -53,7 +37,7 @@ final class HtmlifyFactory
 
         return new Htmlify(
             $plugin->get(EscapeHtml::class),
-            $helperPluginManager->get(HtmlElementInterface::class),
+            $container->get(HtmlElementInterface::class),
             $translator
         );
     }

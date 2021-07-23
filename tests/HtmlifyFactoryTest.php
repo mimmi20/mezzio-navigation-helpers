@@ -14,13 +14,11 @@ namespace MezzioTest\Navigation\Helper;
 
 use Interop\Container\ContainerInterface;
 use Laminas\I18n\View\Helper\Translate;
-use Laminas\ServiceManager\PluginManagerInterface;
 use Laminas\View\Helper\EscapeHtml;
 use Laminas\View\HelperPluginManager;
-use Mezzio\LaminasViewHelper\Helper\HtmlElementInterface;
-use Mezzio\LaminasViewHelper\Helper\PluginManager;
 use Mezzio\Navigation\Helper\Htmlify;
 use Mezzio\Navigation\Helper\HtmlifyFactory;
+use Mimmi20\LaminasView\Helper\HtmlElement\Helper\HtmlElementInterface;
 use PHPUnit\Framework\Exception;
 use PHPUnit\Framework\TestCase;
 use SebastianBergmann\RecursionContext\InvalidArgumentException;
@@ -45,14 +43,6 @@ final class HtmlifyFactoryTest extends TestCase
         $escapeHtml  = $this->createMock(EscapeHtml::class);
         $htmlElement = $this->createMock(HtmlElementInterface::class);
 
-        $pluginManager = $this->getMockBuilder(PluginManagerInterface::class)
-            ->disableOriginalConstructor()
-            ->getMock();
-        $pluginManager->expects(self::once())
-            ->method('get')
-            ->with(HtmlElementInterface::class)
-            ->willReturn($htmlElement);
-
         $helperPluginManager = $this->getMockBuilder(HelperPluginManager::class)
             ->disableOriginalConstructor()
             ->getMock();
@@ -70,8 +60,8 @@ final class HtmlifyFactoryTest extends TestCase
             ->getMock();
         $container->expects(self::exactly(2))
             ->method('get')
-            ->withConsecutive([PluginManager::class], [HelperPluginManager::class])
-            ->willReturnOnConsecutiveCalls($pluginManager, $helperPluginManager);
+            ->withConsecutive([HelperPluginManager::class], [HtmlElementInterface::class])
+            ->willReturnOnConsecutiveCalls($helperPluginManager, $htmlElement);
 
         assert($container instanceof ContainerInterface);
         $helper = ($this->factory)($container);
@@ -88,14 +78,6 @@ final class HtmlifyFactoryTest extends TestCase
         $escapeHtml      = $this->createMock(EscapeHtml::class);
         $htmlElement     = $this->createMock(HtmlElementInterface::class);
         $translatePlugin = $this->createMock(Translate::class);
-
-        $pluginManager = $this->getMockBuilder(PluginManagerInterface::class)
-            ->disableOriginalConstructor()
-            ->getMock();
-        $pluginManager->expects(self::once())
-            ->method('get')
-            ->with(HtmlElementInterface::class)
-            ->willReturn($htmlElement);
 
         $helperPluginManager = $this->getMockBuilder(HelperPluginManager::class)
             ->disableOriginalConstructor()
@@ -114,8 +96,8 @@ final class HtmlifyFactoryTest extends TestCase
             ->getMock();
         $container->expects(self::exactly(2))
             ->method('get')
-            ->withConsecutive([PluginManager::class], [HelperPluginManager::class])
-            ->willReturnOnConsecutiveCalls($pluginManager, $helperPluginManager);
+            ->withConsecutive([HelperPluginManager::class], [HtmlElementInterface::class])
+            ->willReturnOnConsecutiveCalls($helperPluginManager, $htmlElement);
 
         assert($container instanceof ContainerInterface);
         $helper = ($this->factory)($container);
